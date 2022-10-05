@@ -1,0 +1,144 @@
+#{extends 'main.html' /} 
+#{set title:'Cadastrar-se | IF Lyrics' /} 
+#{script id:'usersScript' , src:'users.js', charset:'utf-8' /}
+
+<div id="loginContainer">
+  <h3>Cadastro</h3>
+  <form
+    id="loginform"
+    action="confirmacao.html"
+    name="cadastroForm"
+    onsubmit="return validarCadastro();"
+    method="GET"
+  >
+    <div id="errorMessage">teste de erro</div>
+    <input
+      type="text"
+      name="nome"
+      class="txtSession txtSessionNomeSobre"
+      style="margin-right: 10px"
+      id=""
+      placeholder="Nome*"
+      onfocus="removeErrorClass(this);"
+      onblur="validarCadastro(this);"
+    />
+    <input
+      type="text"
+      name="sobrenome"
+      class="txtSession txtSessionNomeSobre"
+      placeholder="Sobrenome*"
+      onfocus="removeErrorClass(this);"
+      onblur="validarCadastro(this);"
+    />
+    <input
+      type="email"
+      name="email"
+      class="txtSession"
+      placeholder="E-mail*"
+      onfocus="removeErrorClass(this);"
+      onblur="validarCadastro(this);"
+    />
+    <input
+      type="password"
+      name="senha"
+      class="txtSession"
+      placeholder="Senha*"
+      onfocus="removeErrorClass(this);"
+      onblur="validarCadastro(this);"
+    />
+    <input
+      type="password"
+      name="confirmSenha"
+      class="txtSession"
+      placeholder="Confirmar senha*"
+      onfocus="removeErrorClass(this);"
+      onblur="validarCadastro(this);"
+    />
+    <div class="lbl1">
+      <h5>Sexo*:</h5>
+      <span
+        ><input type="radio" name="sexoOP" value="M" id="sexM" class="sexo" />
+        <label for="sexM">Masculino</label></span
+      >
+      <span
+        ><input type="radio" name="sexoOP" value="F" id="sexF" class="sexo" />
+        <label for="sexF">Feminino</label></span
+      >
+    </div>
+
+    <div class="lbl1">
+      <h5>Gêneros musicais favoritos:</h5>
+      <table>
+        <tr>
+          <td>
+            <input type="checkbox" name="chkRock" id="chkRock" value="rock" />
+            <label for="chkRock">Rock</label>
+          </td>
+          <td>
+            <input type="checkbox" name="chkPop" id="chkPop" value="pop" />
+            <label for="chkPop">Pop</label>
+          </td>
+          <td>
+            <input type="checkbox" name="chkIndie" id="chkIndie" value="indie" />
+            <label for="chkIndie">Indie</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="chkMPB" id="chkMPB" value="mpb" />
+            <label for="chkMPB">MPB</label>
+          </td>
+          <td>
+            <input type="checkbox" name="chkFunk" id="chkFunk" value="funk" />
+            <label for="chkFunk">Funk</label>
+          </td>
+          <td>
+            <input type="checkbox" name="chkRap" id="chkRap" value="rap" />
+            <label for="chkRap">Rap</label>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="lbl1">
+      <h5>Estado*:</h5>
+      <select
+        name="cmbEstado"
+        class="cmb1"
+        onfocus="removeErrorClass(this);"
+        onblur="validarCadastro(this);"
+      >
+        <option value="">Selecione</option>
+        <option value="AC">Acre</option>
+        <option value="AL">Alagoas</option>
+        <option value="AP">Amapá</option>
+        <option value="AM">Amazonas</option>
+        <option value="BA">Bahia</option>
+        <option value="CE">Ceará</option>
+        <option value="DF">Distrito Federal</option>
+        <option value="ES">Espirito Santo</option>
+        <option value="GO">Goiás</option>
+        <option value="MA">Maranhão</option>
+        <option value="MT">Mato Grosso</option>
+        <option value="MS">Mato Grosso do Sul</option>
+        <option value="MG">Minas Gerais</option>
+        <option value="PA">Pará</option>
+        <option value="PB">Paraíba</option>
+        <option value="PR">Paraná</option>
+        <option value="PE">Pernambuco</option>
+        <option value="PI">Piauí</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="RN">Rio Grande do Norte</option>
+        <option value="RS">Rio Grande do Sul</option>
+        <option value="RO">Rondônia</option>
+        <option value="RR">Roraima</option>
+        <option value="SC">Santa Catarina</option>
+        <option value="SP">São Paulo</option>
+        <option value="SE">Sergipe</option>
+        <option value="TO">Tocantins</option>
+      </select>
+    </div>
+    <input type="submit" value="Cadastrar" class="buttonSession" />
+
+    <a href="@{Usuarios.loginForm}" id="createLogin">Login</a>
+  </form>
+</div>

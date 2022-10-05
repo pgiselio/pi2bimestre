@@ -1,0 +1,969 @@
+/*Variáveis*/
+:root {
+  --tamanho-max: 1100px;
+  --menu-background: #000;
+  --card-color: #141414;
+}
+
+/*Generalizações*/
+
+* {
+  font-family: "Bree Serif", sans-serif;
+}
+
+.alinhar {
+  max-width: var(--tamanho-max);
+  /*Define uma largura máxima */
+  margin: 0 auto;
+  /*Aqui está que terá um margem de 80px em cime e em baixo e o auto vai cuidar de centralizar o conteúdo*/
+  padding: 70px 20px;
+}
+
+body,
+nav,
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #1c1c1c;
+  color: #fff;
+  line-height: 1.5;
+}
+
+#conteudo {
+  min-height: 100vh;
+  /* background-color: #0c0c0c;
+    border-left:1px solid #000;
+    border-right:1px solid #000; */
+}
+
+/*Barra de Navegação*/
+.f-left {
+  float: left;
+}
+
+#botao-ham {
+  display: none;
+  float: left;
+}
+
+#menuToggle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 800;
+  /*Altera a posição em relação ao eixo z(profundidade) de um elemento com position alterado ou flexionado, fazendo assim um elemento ficar sobreponto o outro*/
+  height: 50px;
+  background: var(--menu-background);
+  box-shadow: 0 2px 4px #00000036;
+  -webkit-user-select: none;
+  user-select: none;
+  /*define se o usuário pode selecionar o texto ou não*/
+}
+
+#group-nav {
+  height: 100%;
+  background: var(--menu-background);
+  max-width: var(--tamanho-max);
+  margin: 0 auto;
+  padding: 0;
+}
+
+#group-nav ul {
+  display: inline-block;
+  height: 100%;
+  list-style: none;
+}
+
+#menu {
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  float: right;
+}
+
+#menu li {
+  list-style: none;
+  float: left;
+  margin-right: 2px;
+}
+
+#menu li a {
+  color: #cdcdcd;
+  text-decoration: none;
+  display: block;
+  /*Define o comportamento de tela como bloco (como uma div é por padrão)*/
+  font-size: 14px;
+  height: 100%;
+  text-align: center;
+  padding: 14px 16px 11px 16px;
+  border-radius: 15px;
+  /* border-bottom: 2px solid transparent; */
+}
+
+#menu li a::after {
+  content: " ";
+  display: block;
+  position: relative;
+  margin: auto;
+  /* background-color: #adadad; */
+  background-color: #01aeb4;
+  border-radius: 2px;
+  top: 2px;
+  width: 0;
+  height: 4px;
+  transition: 0.1s linear;
+}
+
+#menu li a.active {
+  color: #008492;
+}
+
+#menu li a:hover {
+  /* background-color: #ffffff1a;
+    border-bottom: 2px solid #50dfff; */
+  color: #01aeb4;
+}
+
+#menu li a:hover::after {
+  width: 20px;
+}
+
+#menu li a:active:after {
+  width: 15px;
+}
+
+#menu li a.active::after {
+  background-color: #008492;
+  width: 4px;
+}
+
+#menu li a.active:hover::after {
+  background-color: #01aeb4;
+  width: 20px;
+}
+
+#menu li a.active:active::after {
+  width: 15px;
+}
+
+#logo {
+  max-height: 100%;
+}
+
+#mainLogo {
+  height: 100%;
+  float: left;
+}
+
+#mainLogo a {
+  margin-right: 40px;
+  height: 100%;
+  display: block;
+}
+
+#navBackGradient {
+  background: url(/public/images/logo-gradient.png) repeat-x;
+  background-size: contain;
+  width: 50%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  /*Posiciona o elemento atrás do #menu*/
+}
+
+.divisor-nav {
+  height: 20px;
+  width: 2px;
+  top: 15px;
+  margin: 0 10px;
+  display: block;
+  float: left;
+  position: relative;
+  border-radius: 5px;
+  background-color: #a5a5a52e;
+}
+
+/*Campo de busca*/
+
+#busca {
+  float: left;
+  display: block;
+  /*tamanhos: menu ↓ + logo ↓ + espacinho para não ficar muito colado*/
+  width: calc(100% - (340.5px + 165px + 10px));
+  height: 100%;
+  transition: 0.2s linear;
+}
+
+#busca li {
+  height: 100%;
+}
+
+#search-form {
+  height: 40px;
+  width: 100%;
+  position: relative;
+  top: 5px;
+}
+
+#txtBusca {
+  background-color: #7a7a7a1f;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  font-size: 15px;
+  height: 100%;
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 10px;
+  border: none;
+  border: 2px solid #525252;
+  border-radius: 30px;
+  /*Altera o arredondamento dos cantos do elemento*/
+  transition: 0.1s linear;
+  /*adiciona um efeito de transição*/
+}
+
+#txtBusca:focus {
+  outline: none;
+  /*Remove o contorno padrão do campo de texto ao obter foco*/
+  border-color: #50dfff;
+}
+
+#txtBusca::placeholder {
+  /*O seletor placeholder serve para alterar o estilo do placeholder*/
+  color: #727272;
+  opacity: 1;
+  /*Muda a opacidade do elemento 0-1*/
+}
+
+#search-icon {
+  font-size: 15px;
+  position: absolute;
+  top: 30%;
+  left: 15px;
+  color: #525252;
+  pointer-events: none;
+  /*define se o elemento sofre ou não com os eventos de ponteiro...*/
+  /*Nesse caso ele não interagirá com o mouse fazendo com que o campo de texto seja selecionado em seu lugar(por estar logo atrás)*/
+}
+
+/*Rodapé*/
+
+footer {
+  background-color: var(--menu-background);
+  width: 100%;
+  color: #fff;
+  position: relative;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-left: 20px;
+  position: relative;
+  min-width: 200px;
+  margin-right: 5px;
+  float: left;
+  z-index: 2;
+}
+
+footer li a {
+  text-decoration: none;
+  color: #999999;
+  padding: 4px 0;
+  display: inline-block;
+}
+
+footer li a:hover {
+  color: #c9c8c8;
+}
+
+footer h4 {
+  color: #17bfae;
+}
+
+#bg-notes {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.06;
+  background: url(/public/images/notes.webp);
+  pointer-events: none;
+}
+
+#rodape {
+  padding-top: 30px;
+  padding-bottom: 60px;
+  max-width: var(--tamanho-max);
+  margin: auto;
+  min-height: 150px;
+}
+
+#rodapeCreditos {
+  height: 60px;
+  color: white;
+  background: rgb(63, 94, 251);
+  position: relative;
+  padding-left: 20px;
+}
+
+#footerDesc {
+  height: 100%;
+  background: linear-gradient(90deg,
+      rgba(63, 94, 251, 1) 0%,
+      rgba(252, 70, 107, 1) 100%);
+  position: relative;
+  z-index: 1;
+  max-width: var(--tamanho-max);
+  margin: 0 auto;
+}
+
+#fdescText {
+  padding-top: 8px;
+  display: block;
+  float: left;
+}
+
+#footerLogo {
+  float: right;
+  height: 100%;
+  display: block;
+}
+
+#rodapeBackTrasition {
+  background: #000;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/*Fim do Rodapé*/
+
+/* Botão ir ao topo*/
+#irAoTopo {
+  position: fixed;
+  z-index: 700;
+  bottom: 45px;
+  right: 43px;
+}
+
+#irAoTopo a {
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 15px;
+  background: #ff6347;
+  border-radius: 100%;
+}
+
+#irAoTopo a::before {
+  /* o seletor ::before adiciona um pseudo-elemento antes do elemento selecionado*/
+  content: "\f106";
+  /*os pseudo-elementos possuem essa propriedade onde você pode colocar o conteúdo*/
+  /*o conteúdo adicionado é referente ao código de um ícone do pacote de ícones Font Awesome, */
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  display: block;
+}
+
+#irAoTopo a:hover {
+  background: #ff816b;
+}
+
+/* Fim do botão ir ao topo*/
+
+/*Página inicial*/
+.paginaInicial section {
+  margin-bottom: 30px;
+  padding: 30px 20px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: var(--card-color);
+}
+
+.paginaInicial h3 {
+  color: #ff4726;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #91919169;
+  text-align: center;
+}
+
+.podio {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+}
+
+/* 
+.podio ::marker {
+    font-size: 30px;
+} */
+
+.podio a {
+  text-decoration: none;
+  padding: 10px 5px;
+  border-radius: 5px;
+  position: relative;
+  display: block;
+  margin-bottom: 5px;
+  transition: 0.2s linear;
+}
+
+.podio a:hover {
+  /* background: #f2f2f2; */
+  background: #ffffff08;
+}
+
+.podio a::before {
+  /*conteúdo visitado para o counter(list-item) https://web.dev/css-marker-pseudo-element/  */
+  /*também visto https://www.w3schools.com/css/css_counters.asp   */
+  content: counter(list-item);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 5px;
+  text-align: right;
+  color: #00888d;
+  float: left;
+  font-size: 30px;
+}
+
+.podio a:hover::before {
+  color: #02c2c9;
+}
+
+.podio b {
+  /* color: #012626; */
+  color: #dfdfdf;
+  font-size: 16px;
+  line-height: 1.6;
+  display: block;
+}
+
+.podio a:hover b {
+  color: #02c2c9;
+}
+
+.podio span {
+  /* color: #17bfae; */
+  color: #8b8b8b;
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#list-favEdit h4 {
+  display: inline-block;
+  /*Permite assim como o block definir o tamanho e margens do elemento, mas não é feito uma quebra de linha*/
+  padding-left: 10px;
+  color: #fff;
+}
+
+#list-favEdit li a {
+  padding-left: 10px;
+}
+
+#list-favEdit li a::before {
+  content: "";
+}
+
+/*Fim da página inicial*/
+
+/*Página de top Artistas*/
+
+.artistasImg {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  float: left;
+}
+
+#podioArt {
+  grid-template-columns: 1fr;
+}
+
+#podioArt a {
+  padding: 10px;
+  height: 50px;
+}
+
+#podioArt a::before {
+  margin-top: 4px;
+}
+
+#podioArt b {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+}
+
+/*Página de uma música*/
+
+#musicaContent * {
+  margin: 0;
+  padding: 0;
+}
+
+#musicaContent {
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+#musicaContent th {
+  width: 75px;
+}
+
+#musicaContent td,
+#musicaContent th {
+  padding-right: 10px;
+}
+
+#musicaContent h1 {
+  color: #d1d1d1;
+  float: left;
+}
+
+#music-artist-img {
+  border-radius: 100%;
+  height: 75px;
+}
+
+.music-links img {
+  height: 20px;
+}
+
+#musicaContent a {
+  text-decoration: none;
+  color: #17bfae;
+  padding: 4px 0;
+  display: inline-block;
+}
+
+#musicaContent a:hover {
+  color: #1ff3de;
+}
+
+#letraMusica {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: #a3a3a3;
+  letter-spacing: 0.36px;
+  /*Define o espaçamento entre as letras(sendo 0 o espaçamento padrão)*/
+  line-height: 1.5;
+  padding: 5px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding-left: 90px;
+  background: var(--card-color);
+}
+
+#letraMusica p {
+  margin-bottom: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Login e Cadastro*/
+.lbl1 * {
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #bbbbbb;
+  font-size: 15px;
+}
+
+.lbl1 {
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+.lbl1 h5 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.lbl1 span:nth-child(n + 3) {
+  margin-left: 30px;
+}
+
+.lbl1 table {
+  width: 100%;
+}
+
+.cmb1 {
+  background-color: #000;
+  padding: 10px;
+  border-radius: 10px;
+  width: calc(100% - 10px);
+}
+
+#loginContainer {
+  width: 330px;
+  margin: 0 auto;
+}
+
+#loginContainer h3 {
+  text-align: center;
+}
+
+#loginform {
+  width: calc(100% - 40px);
+  padding: 20px 20px;
+  background: var(--card-color);
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+#createLogin {
+  width: 100%;
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #00888d;
+  text-decoration: none;
+  font-size: 14px;
+  text-align: center;
+}
+
+#createLogin:hover {
+  color: #00b3b9;
+}
+
+.txtSession {
+  display: inline-block;
+  padding: 10px 20px;
+  width: calc(100% - 40px);
+  max-width: 100%;
+  margin-bottom: 20px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border: 2px solid #ffffff2f;
+  border-radius: 10px;
+  transition: 0.1s linear;
+}
+
+.txtSession:hover {
+  border-color: #ffffff4b;
+}
+
+.txtSession:focus {
+  border-color: #00888d;
+  outline: none;
+}
+
+.txtSessionNomeSobre {
+  width: calc(50% - 50px);
+  float: left;
+}
+
+.buttonSession {
+  display: block;
+  padding: 10px 20px;
+  width: 100%;
+  margin: auto;
+  margin-top: 30px;
+  border-radius: 8px;
+  border: 2px solid #ffffff1c;
+  cursor: pointer;
+  color: #fff;
+  background: #00484b;
+}
+
+.buttonSession:hover {
+  background: #00888d;
+}
+
+.errorField {
+  border-color: red;
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.363);
+}
+
+#errorMessage {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid red;
+  color: pink;
+  background: #ff00001c;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  font-size: 12px;
+  display: none;
+  transition: 0.5s linear;
+}
+
+@media (max-width: 767px) {
+
+  /* O que está dentro dessas chaves só se aplicam até a largura máxima da tela em 767px*/
+  .alinhar {
+    padding: 70px 10px;
+  }
+
+  #botao-ham {
+    display: block;
+    padding: 15px;
+  }
+
+  #mainLogo {
+    position: absolute;
+  }
+
+  #mainLogo img {
+    height: 50px;
+  }
+
+  #mainLogo a {
+    margin-right: 5px;
+  }
+
+  /*Código seguinte pego e adaptado de https://codepen.io/erikterwan/pen/EVzeRP   */
+  #chk-ham {
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    opacity: 0;
+    /* hide this */
+    z-index: 2;
+    /* and place it over the hamburger */
+  }
+
+  body.seachOnFocus #chk-ham {
+    pointer-events: none;
+  }
+
+  /*
+      * Just a quick hamburger
+      */
+  #botao-ham span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #f7f7f7;
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 16px 1px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+  }
+
+  #botao-ham:first-child {
+    transform-origin: 0% 0%;
+  }
+
+  #botao-ham:nth-last-child(2) {
+    transform-origin: 0% 100%;
+  }
+
+  /* 
+      * Transform all the slices of hamburger
+      * into a crossmark.
+      */
+  body.show-menu #chk-ham~span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #ebebeb;
+  }
+
+  /*
+      * But let's hide the middle one.
+      */
+  body.show-menu #chk-ham~span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+
+  /*
+      * Ohyeah and the last one should go the other direction
+      */
+  body.show-menu #chk-ham~span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+  }
+
+  body.seachOnFocus #chk-ham~span,
+  .close-active span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #ebebeb;
+  }
+
+  body.seachOnFocus #chk-ham~span:nth-last-child(3),
+  .close-active span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+
+  body.seachOnFocus #chk-ham~span:nth-last-child(2),
+  .close-active span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+  }
+
+  /*
+      * Make this absolute positioned
+      * at the top left of the screen
+      */
+  #menu {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    max-width: 400px;
+    width: 80%;
+    float: none;
+    height: calc(100vh - 50px) !important;
+    background: var(--menu-background);
+    list-style-type: none;
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  body.show-menu #menu {
+    transform: none;
+  }
+
+  #menu li {
+    padding: 10px 0;
+    font-size: 22px;
+    width: 100%;
+    text-align: center;
+  }
+
+  #menu li a {
+    text-decoration: none;
+    color: #b9b9b9;
+    transition: color 0.3s ease;
+    display: block;
+    width: 95%;
+    padding: 14px 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  #menu li a:hover {
+    background-color: #ffffff1a;
+    color: #fff;
+  }
+
+  #group-nav {
+    background: transparent;
+    transition: all 0.2s linear;
+  }
+
+  body.seachOnFocus #group-nav {
+    background: var(--menu-background);
+  }
+
+  .divisor-nav {
+    width: 90%;
+    height: 2px;
+    top: 0;
+    margin: 20px 5%;
+  }
+
+  #navBackGradient {
+    width: 170px;
+  }
+
+  /*Campo de Busca*/
+
+  #busca {
+    float: right;
+    width: 55px;
+    margin-right: 10px;
+    background: var(--menu-background);
+  }
+
+  body.seachOnFocus #busca {
+    width: calc(100% - 65px);
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  #txtBusca {
+    position: relative;
+    margin-right: 0;
+  }
+
+  #search-icon {
+    left: 20px;
+  }
+
+  /*Rodapé*/
+  footer ul {
+    float: initial;
+    display: block;
+    text-align: center;
+  }
+
+  footer li a {
+    padding: 10px 30px;
+  }
+
+  #fdescText {
+    font-size: 14px;
+  }
+
+  /*Página inicial*/
+  .podio {
+    grid-template-columns: 1fr;
+  }
+
+  /*Música*/
+  #musicaContent h1 {
+    font-size: 20px;
+  }
+
+  #musicaContent h3 {
+    font-size: 15px;
+  }
+
+  #musicaContent th {
+    width: 50px;
+  }
+
+  .music-links img {
+    height: 18px;
+  }
+
+  .music-links {
+    padding: 4px 2px !important;
+    margin-left: 2px !important;
+  }
+
+  #music-artist-img {
+    border-radius: 100%;
+    height: 50px;
+  }
+
+  #letraMusica {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 17px;
+  }
+}

@@ -1,0 +1,112 @@
+#{extends 'main.html' /} 
+#{set title:'IF Lyrics' /}
+<div class="paginaInicial">
+  <section id="top10">
+    <h3>Top das Paradas Brasileiras</h3>
+    <ol class="podio">
+      <li>
+        <a href="#">
+          <b>Meu Pedaço de Pecado</b>
+          <span>João Gomes</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>Chega e Senta - Ao Vivo</b>
+          <span>John Amplificado</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>Arranhão - Ao vivo</b>
+          <span>Herinque & Juliano</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>Rolê</b>
+          <span>Tarcísio de Acordeon, Marcynho Sensação</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>Você beberia ou não beberia?</b>
+          <span>Zé Neto e Cristiano</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>Quer voar</b>
+          <span>Matuê</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>Ficha limpa</b>
+          <span>Gustavo Lima</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>Morena</b>
+          <span>Luan Santana</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>Ela e Ela</b>
+          <span>Zé Neto & Cristiano</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <b>baby me atende</b>
+          <span>Matheus Fernandes, Dilsinho</span>
+        </a>
+      </li>
+    </ol>
+  </section>
+  <section id="favEdit">
+    <h3>Favoritas dos Editores</h3>
+    <ul id="list-favEdit" class="podio">
+      <div>
+        <li style="text-align: center">
+          <h4>Alice</h4>
+        </li>
+        <li>
+          <a href="@{Musicas.index}"
+            ><b>Your Power</b><span>Billie Eilish</span></a
+          >
+        </li>
+        <li>
+          <a href="@{Musicas.index}"
+            ><b>No Time To Die</b> <span>Billie Eilish</span></a
+          >
+        </li>
+        <li>
+          <a href="@{Musicas.index}"><b>Crazy</b><span>Gnarls Barkley</span></a>
+        </li>
+      </div>
+      <div>
+        <li style="text-align: center">
+          <h4>Pedro</h4>
+        </li>
+        <li>
+          <a href="@{Musicas.index}"
+            ><b>How Are You True</b> <span>Cage the Elephant</span></a
+          >
+        </li>
+        <li>
+          <a href="@{Musicas.index}"><b>Trouble</b> <span>Coldplay</span></a>
+        </li>
+        <li>
+          <a href="@{Musicas.index}"
+            ><b>Hangover</b> <span>Grand Lotus</span></a
+          >
+        </li>
+      </div>
+    </ul>
+  </section>
+
+  <script type="text/javascript" src="/public/javascripts/home.js"></script>
+</div>

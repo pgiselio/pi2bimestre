@@ -1,0 +1,34 @@
+#{extends 'main.html' /} 
+#{set title:'Fazer login | IF Lyrics' /}
+#{script id:'usersScript' , src:'users.js', charset:'utf-8' /}
+
+<main id="conteudo" class="alinhar">
+  <div id="loginContainer">
+    <h3>Login</h3>
+    <form
+      id="loginform"
+      action="@{Usuarios.login}"
+      name="loginForm"
+      onsubmit="return validarLogin();"
+      method="POST"
+    >
+      <div id="errorMessage">teste de erro</div>
+      <input
+        type="email"
+        name="email"
+        class="txtSession"
+        placeholder="E-mail"
+        onfocus="removeErrorClass(this);"
+      />
+      <input
+        type="password"
+        name="password"
+        class="txtSession"
+        placeholder="Senha"
+        onfocus="removeErrorClass(this);"
+      />
+      <input type="submit" value="Entrar" class="buttonSession" />
+      <a href="@{Usuarios.cadastroForm}" id="createLogin">Cadastre-se</a>
+    </form>
+  </div>
+</main>

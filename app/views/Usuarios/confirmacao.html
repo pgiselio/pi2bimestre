@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<!--ALice kaliane e Pedro Gisélio-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IF Lyrics</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/fonts/fontawesome-free-6.0.0-beta2-web/css/all.css">
+</head>
+
+<body>
+    <nav>
+        <div id="menuToggle">
+            <div id="group-nav">
+                <ul class="f-left">
+                    <div id="botao-ham">
+                        <input id="chk-ham" onclick="expandir()" type="checkbox" />
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </ul>
+                <ul class="f-left">
+                    <div id="mainLogo"><a href="../index.html" title="Página Inicial"><img id="logo" src="../imgs/logo.png" alt="" /></a></div>
+                </ul>
+                <ul id="busca" class="f-left">
+                    <li>
+                        <form id="search-form" action="/search" type="search">
+                            <input type="search" id="txtBusca" onblur="ocultarSearch();" onfocus="expandirSearch();"
+                                autocomplete="off" placeholder="Pesquisar... " />
+                            <i id="search-icon" class="fas fa-search"></i>
+                        </form>
+                    </li>
+                </ul>
+                <ul id="menu">
+                    <li><a href="../artistas.html">Artistas</a></li>
+                    <li><a href="../playlist.html">Playlists</a></li>
+                    <li><a href="../sobre.html">Sobre</a></li>
+                    <span class="divisor-nav"></span>
+                    <li><a href="login.html">Entrar</a></li>
+                </ul>
+            </div>
+            <div id="navBackGradient"> </div>
+        </div>
+        <script type="text/javascript" src="../js/navbar.js"></script>
+    </nav>
+
+    <span id="topo" style="position: absolute; top: 0;"></span>
+
+    <main id="conteudo" class="alinhar">
+        <div id="loginContainer">
+            <h3>Sucesso!</h3>
+        </div>
+    </main>
+
+    <div id="irAoTopo">
+        <a href="#topo" class="fas" title="Ir ao topo"></a>
+    </div>
+
+    <footer>
+        <div id="rodape">
+            <ul>
+                <li><h4>Navegar</h4></li>
+                <li><a href="../index.html">Página Inicial</a></li>
+                <li><a href="../artistas.html">Artistas</a></li>
+                <li><a href="../playlist.html">Playlists</a></li>
+            </ul>
+            
+            <ul>
+                <li><h4>Usuarios</h4></li>
+                <li><a href="login.html">Entrar</a></li>
+                <li><a href="cadastro.html">Cadastrar</a></li>
+            </ul>
+
+            <ul>
+                <li><h4>Sobre o Site</h4></li>
+                <li><a href="../sobre.html">Sobre</a></li>
+            </ul>
+        </div>
+        <div id="bg-notes"></div>
+        <div id="rodapeCreditos">
+            <div id="footerDesc">
+                <span id="fdescText">Integrantes do grupo: </br><span style="color: pink;">Alice Kaliane;
+                        Pedro Gisélio.</span> </span>
+                <img id="footerLogo" src="../imgs/logo3.png" />
+            </div>
+            <span id="rodapeBackTrasition"></span>
+        </div>
+
+    </footer>
+</body>
+
+</html>

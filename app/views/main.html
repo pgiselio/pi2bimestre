@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>#{get 'title' /}</title>
+    <meta charset="${_response_encoding}">
+    <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+    <link rel="stylesheet" href="@{'/public/stylesheets/style.css'}">
+    <link rel="stylesheet" href="@{'/public/stylesheets/fonts.css'}">
+    <link rel="stylesheet" href="@{'/public/stylesheets/fonts/fontawesome-free-6.0.0-beta2-web/css/all.css'}">
+    #{get 'moreStyles' /}
+    <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+
+</head>
+
+<body>
+    <nav>
+        <div id="menuToggle">
+            <div id="group-nav">
+                <ul class="f-left">
+                    <div id="botao-ham">
+                        <input id="chk-ham" onclick="expandirEsconderMenu()" type="checkbox" />
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </ul>
+                <ul class="f-left">
+                    <div id="mainLogo"><a href="@{Application.index}" title="Página Inicial"><img id="logo"
+                                src="@{'/public/images/logo.png'}" alt="" /></a></div>
+                </ul>
+                <ul id="busca" class="f-left">
+                    <li>
+                        <form id="search-form" action="@{Musicas.buscaPorNome}" type="search">
+                            <input type="search" name="nome" id="txtBusca" onblur="ocultarSearch();" onfocus="expandirSearch();"
+                                autocomplete="off" placeholder="Pesquisar... " />
+                            <i id="search-icon" class="fas fa-search"></i>
+                        </form>
+                    </li>
+                </ul>
+                <ul id="menu">
+                    <li><a href="@{Application.artistas}" #{if request.action=="Application.artistas"}class="active"#{/if} >Artistas</a></li>
+                    <li><a href="@{Application.playlists}" #{if request.action=="Application.playlists"}class="active"#{/if}>Playlists</a></li>
+                    <li><a href="@{Application.sobre}" #{if request.action=="Application.sobre"}class="active"#{/if}>Sobre</a></li>
+                    <span class="divisor-nav"></span>
+                    <li><a href="@{Usuarios.loginForm}" #{if request.action=="Usuarios.loginForm" || request.action=="Usuarios.cadastroForm"}class="active"#{/if}>Entrar</a></li>
+                </ul>
+            </div>
+            <div id="navBackGradient"> </div>
+        </div>
+        <script type="text/javascript" src="/public/javascripts/navbar.js"></script>
+    </nav>
+
+    <span id="topo" style="position: absolute; top: 0;"></span>
+
+    <main id="conteudo" class="alinhar"> 
+        #{doLayout /}
+    </main>
+
+    #{get 'moreScripts' /}
+</body>
+
+<div id="irAoTopo">
+    <a href="#topo" class="fas" title="Ir ao topo"></a>
+</div>
+
+<footer>
+    <div id="rodape">
+        <ul>
+            <li>
+                <h4>Navegar</h4>
+            </li>
+            <li><a href="@{Application.index}">Página Inicial</a></li>
+            <li><a href="@{Application.artistas}">Artistas</a></li>
+            <li><a href="@{Application.playlists}">Playlists</a></li>
+        </ul>
+        <ul>
+            <li>
+                <h4>Usuarios</h4>
+            </li>
+            <li><a href="@{Usuarios.loginForm}">Entrar</a></li>
+            <li><a href="@{Usuarios.cadastroForm}">Cadastre-se</a></li>
+        </ul>
+        <ul>
+            <li>
+                <h4>Sobre o Site</h4>
+            </li>
+            <li><a href="@{Application.sobre}">Sobre</a></li>
+        </ul>
+    </div>
+    <div id="bg-notes"></div>
+    <div id="rodapeCreditos">
+        <div id="footerDesc">
+            <img id="footerLogo" src="/public/images/logo3.png" />
+        </div>
+        <span id="rodapeBackTrasition"></span>
+    </div>
+
+</footer>
+
+</html>
