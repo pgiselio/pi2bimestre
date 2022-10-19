@@ -6,14 +6,17 @@
 GET     /                                       Application.index
 GET     /sobre                                  Application.sobre
 GET     /top-artistas                           Application.artistas
-GET     /musicas                                Musicas.listar
 
 
 GET     /auth/login                             Usuarios.loginForm
 GET     /auth/cadastro                          Usuarios.cadastroForm
 
 GET     /search                                 Musicas.findByName
+GET     /musicas                                Musicas.listar
+GET     /musica/{id}                            Musicas.detalhar
+GET     /musica/{id}/editar                     Musicas.editar
 
+GET
 
 
 

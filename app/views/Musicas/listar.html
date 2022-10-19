@@ -1,17 +1,18 @@
 #{extends 'main.html' /}
-#{set title:'Buscando por | IF Lyrics' /}
+#{set title:'Listagem de Músicas | IF Lyrics' /}
 #{stylesheet id:'music-list', src:'musiclist.css' /}
 
 #{if name}
-<div class="header">
-    <p>Buscando por: <strong>${name}</strong></p>
-</div>
+    #{set title:'Buscando por "'+name+'" | IF Lyrics' /}
+    <div class="header">
+        <p>Buscando por: <strong>${name}</strong></p>
+    </div>
 #{/if}
 #{else}
-<div class="header">
-    <h1>Músicas cadastradas</h1>
-    <a class="btn" href="@{Musicas.form}"><i class="fas fa-plus"></i> Adicionar</a>
-</div>
+    <div class="header">
+        <h1>Músicas cadastradas</h1>
+        <a class="btn" href="@{Musicas.form}"><i class="fas fa-plus"></i> Adicionar</a>
+    </div>
 #{/else}
 <section class="box">
     <div class="music-list">

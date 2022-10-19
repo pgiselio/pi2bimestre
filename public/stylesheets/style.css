@@ -69,7 +69,7 @@ input:not([id="txtBusca"], [type="submit"]), textarea {
 
 }
 
-input:not([id="txtBusca"], [type="submit"]):hover, textarea:hover {
+input:not([id="txtBusca"], [type="submit"], :focus):hover, textarea:hover {
   border-color: #ffffff4b;
 }
 
