@@ -1,0 +1,26 @@
+#{extends 'main.html' /}
+#{set title:'Adicionar nova música | IF Lyrics' /}
+
+<div class="header">
+    #{if music}
+    <h1>Editar música</h1>
+    #{/if}
+    #{else}
+    <h1>Adicionar nova música</h1>
+    #{/else}
+</div>
+<form action="@{Musicas.save}" method="post">
+    <input type="hidden" name="music.id" value="${music?.id}"/>
+    <div class="form-group">
+        <input type="text" name="music.name" placeholder="Título" style="width: 300px;" value="${music?.name}" />
+        <textarea name="music.lyric" id="lyric" cols="30" rows="10"
+            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+            placeholder="Letra da música">${music?.lyric}</textarea>
+        <button type="submit" class="btn">Enviar</button>
+    </div>
+</form>
+
+<script>
+    let lyric = document.querySelector("#lyric");
+    lyric.style.height = lyric.scrollHeight + "px";
+</script>

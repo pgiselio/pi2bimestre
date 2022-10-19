@@ -1,0 +1,32 @@
+.music-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.music-list .music{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.music-list .music ~ .music {
+    border-top: 1px solid #ffffff1c;
+}
+.music-list .music .actions{
+    display: flex;
+    gap: 5px;
+}
+.music-list .music .titles{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+.music-list .music .titles > *{
+    padding: 0;
+    margin: 0;
+}
+

@@ -1,0 +1,37 @@
+#{extends 'main.html' /}
+#{set title:'${musica.name} | IF Lyrics' /}
+
+#{if musica}
+
+<table id="musicaContent">
+    <tr>
+        <th rowspan="2">
+            <img src="/public/images/blank-profilepic.png" title="Artista" id="music-artist-img">
+        </th>
+        <td>
+            <h1>
+                ${musica.name}
+                
+                <!-- <a href="https://youtu.be/-N4jf6rtyuw" class="music-links" target="_blank"><img src="/public/images/yt.png"
+                    title="Abrir música no YouTube"></a>
+                <a href="https://open.spotify.com/track/1vxw6aYJls2oq3gW0DujAo?si=bb6a26b8e5d54846"
+                target="_blank" class="music-links"><img src="/public/images/spotify.svg" title="Abrir música no Spotify"></a> -->
+            </h1>    
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3><a href="#">ARTISTA</a></h3>
+        </td>
+    </tr>
+</table>
+
+<div id="letraMusica">
+    <pre>
+        ${musica.lyric}
+    </pre>
+</div>
+#{/if}
+#{else}
+    <h3>Música não encontrada</h3>
+#{/else}

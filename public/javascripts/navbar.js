@@ -1,3 +1,10 @@
+const searchField = document.querySelector("#txtBusca");
+window.addEventListener('load', () => {
+  if (searchField.value){
+    expandirSearch();
+  }
+});
+
 function expandirEsconderMenu() {
   document.body.classList.toggle("show-menu");
 }
@@ -11,5 +18,5 @@ function expandirSearch() {
   }
 }
 function ocultarSearch() {
-  document.body.classList.remove("seachOnFocus");
+  if(!searchField.value) document.body.classList.remove("seachOnFocus");
 }

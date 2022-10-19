@@ -21,7 +21,7 @@ public class Application extends Controller {
         render();
     }
 
-    public static void playlists() {
+    public static void musicas() {
         render();
     }
 

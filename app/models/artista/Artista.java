@@ -14,15 +14,16 @@ import play.db.jpa.Model;
 @Entity
 public class Artista extends Model{
     
-    public String biografia;
+    public String name;
+    public String biography;
 
     @OneToMany
-    public List<Musica> autorias;
+    public List<Musica> authorship;
 
     @Embedded
-    public RedeSocial redeSocial;
+    public RedeSocial socialNetwork;
 
     @OneToMany
-    public List<Musica> musicas;
+    public List<Musica> musics;
 
 }

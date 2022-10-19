@@ -32,6 +32,60 @@ body {
   line-height: 1.5;
 }
 
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: 2px solid #ffffff1c;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  background: #00484b;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #00888d;
+}
+input:not([id="txtBusca"], [type="submit"]), textarea {
+  display: block;
+  padding: 10px 20px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border: 2px solid #ffffff2f;
+  border-radius: 10px;
+  transition: border 0.1s linear;
+}
+
+.btn.btn-danger {
+  background-color: #be0000;
+}
+.btn.btn-danger:hover {
+  background-color: #d10000;
+
+}
+
+input:not([id="txtBusca"], [type="submit"]):hover, textarea:hover {
+  border-color: #ffffff4b;
+}
+
+input:focus, textarea:focus {
+  border-color: #00888d;
+  outline: none;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.form-group > * {
+  max-width: 100%;
+}
 #conteudo {
   min-height: 100vh;
   /* background-color: #0c0c0c;
@@ -205,6 +259,8 @@ body {
 }
 
 #search-form {
+  display: grid;
+  grid-template-columns: 1fr 70px;
   height: 40px;
   width: 100%;
   position: relative;
@@ -212,7 +268,8 @@ body {
 }
 
 #txtBusca {
-  background-color: #7a7a7a1f;
+  position: relative;
+  background-color: #0f0f0f;
   font-family: Arial, Helvetica, sans-serif;
   color: #fff;
   font-size: 15px;
@@ -222,10 +279,11 @@ body {
   padding-right: 10px;
   border: none;
   border: 2px solid #525252;
-  border-radius: 30px;
+  border-radius: 30px 10px 10px 30px;
   /*Altera o arredondamento dos cantos do elemento*/
   transition: 0.1s linear;
   /*adiciona um efeito de transição*/
+  z-index: 2;
 }
 
 #txtBusca:focus {
@@ -248,9 +306,25 @@ body {
   left: 15px;
   color: #525252;
   pointer-events: none;
+  z-index: 3;
   /*define se o elemento sofre ou não com os eventos de ponteiro...*/
   /*Nesse caso ele não interagirá com o mouse fazendo com que o campo de texto seja selecionado em seu lugar(por estar logo atrás)*/
 }
+
+.search-btn {
+  position: absolute;
+  background-color: #525252;
+  border-radius: 10px 30px 30px 10px;
+  cursor: pointer;
+  border: 2px solid #525252;
+  padding-left: 10px;
+  height: 100%;
+  width: 70px;
+  right: 10px;
+  z-index: 1;
+  color: #000;
+}
+
 
 /*Rodapé*/
 
@@ -317,9 +391,11 @@ footer h4 {
 
 #footerDesc {
   height: 100%;
-  background: linear-gradient(90deg,
-      rgba(63, 94, 251, 1) 0%,
-      rgba(252, 70, 107, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
   position: relative;
   z-index: 1;
   max-width: var(--tamanho-max);
@@ -572,10 +648,11 @@ footer h4 {
   padding-left: 90px;
   background: var(--card-color);
 }
-
+#letraMusica * {
+  font-family: Arial, Helvetica, sans-serif;
+}
 #letraMusica p {
   margin-bottom: 20px;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 /*Login e Cadastro*/
@@ -707,8 +784,25 @@ footer h4 {
   transition: 0.5s linear;
 }
 
+.box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: var(--card-color);
+}
+.box > * {
+  max-width: 100%;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 @media (max-width: 767px) {
-
   /* O que está dentro dessas chaves só se aplicam até a largura máxima da tela em 767px*/
   .alinhar {
     padding: 70px 10px;
@@ -779,7 +873,7 @@ footer h4 {
       * Transform all the slices of hamburger
       * into a crossmark.
       */
-  body.show-menu #chk-ham~span {
+  body.show-menu #chk-ham ~ span {
     opacity: 1;
     transform: rotate(45deg) translate(-2px, -1px);
     background: #ebebeb;
@@ -788,7 +882,7 @@ footer h4 {
   /*
       * But let's hide the middle one.
       */
-  body.show-menu #chk-ham~span:nth-last-child(3) {
+  body.show-menu #chk-ham ~ span:nth-last-child(3) {
     opacity: 0;
     transform: rotate(0deg) scale(0.2, 0.2);
   }
@@ -796,24 +890,24 @@ footer h4 {
   /*
       * Ohyeah and the last one should go the other direction
       */
-  body.show-menu #chk-ham~span:nth-last-child(2) {
+  body.show-menu #chk-ham ~ span:nth-last-child(2) {
     transform: rotate(-45deg) translate(0, -1px);
   }
 
-  body.seachOnFocus #chk-ham~span,
+  body.seachOnFocus #chk-ham ~ span,
   .close-active span {
     opacity: 1;
     transform: rotate(45deg) translate(-2px, -1px);
     background: #ebebeb;
   }
 
-  body.seachOnFocus #chk-ham~span:nth-last-child(3),
+  body.seachOnFocus #chk-ham ~ span:nth-last-child(3),
   .close-active span:nth-last-child(3) {
     opacity: 0;
     transform: rotate(0deg) scale(0.2, 0.2);
   }
 
-  body.seachOnFocus #chk-ham~span:nth-last-child(2),
+  body.seachOnFocus #chk-ham ~ span:nth-last-child(2),
   .close-active span:nth-last-child(2) {
     transform: rotate(-45deg) translate(0, -1px);
   }
@@ -905,9 +999,24 @@ footer h4 {
     right: 0;
   }
 
+  .search-btn {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s linear;
+  }
+  body.seachOnFocus .search-btn {
+    display: block;
+    opacity: 1;
+    pointer-events: all;
+  }
+
   #txtBusca {
     position: relative;
     margin-right: 0;
+    border-radius: 30px;
+  }
+  body.seachOnFocus #txtBusca {
+    border-radius: 30px 10px 10px 30px;
   }
 
   #search-icon {

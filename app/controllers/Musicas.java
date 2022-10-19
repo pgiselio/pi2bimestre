@@ -13,15 +13,43 @@ public class Musicas extends Controller{
         render();
     }
 
-    public static void buscaPorNome(String nome){
-        final String nomeUpperCase = nome.toUpperCase();
-        List<Musica> musicas = Musica.find(
-            "SELECT m FROM Musica m LEFT JOIN Artista a INNER JOIN a.musicas mus "+
-            "WHERE mus.id = m.id AND"+ 
-            "(a.name.upperCase LIKE ? OR m.name.upperCase LIKE ? )", 
-            nomeUpperCase).fetch();
-
-        render(musicas);
+    public static void form() {
+        render();
     }
+
+    public static void detalhar(Long id) {
+        Musica musica = Musica.findById(id);
+        render(musica);
+    }
+
+    public static void findByName(String name){
+        final String nameUpperCase = name.toUpperCase();
+
+        List<Musica> musics = Musica.find("upper(name) like ?1 AND isDeleted = ?2", "%" + nameUpperCase + "%", false).fetch(); 
+        
+        render(musics);
+    }
+
+    public static void listar(){
+        List<Musica> musics = Musica.find("isDeleted = ?1", false).fetch();
+        render(musics);
+    }
+
+    public static void save(Musica music){
+        music.save();
+        listar();
+    }
+
+    public static void delete(Long id){
+        final Musica music = Musica.findById(id);
+        music.isDeleted = true;
+        music.save();
+        listar();
+    }
+
+    public static void editar(Long id) {
+		Musica music = Musica.findById(id);
+		renderTemplate("Musicas/form.html", music);
+	}
     
 }
