@@ -26,8 +26,7 @@ public class Musicas extends Controller{
         final String nameUpperCase = name.toUpperCase();
 
         List<Musica> musics = Musica.find("upper(name) like ?1 AND isDeleted = ?2", "%" + nameUpperCase + "%", false).fetch(); 
-        
-        render(musics);
+        renderTemplate("Musicas/listar.html", name, musics);
     }
 
     public static void listar(){

@@ -2,11 +2,17 @@
 #{set title:'Buscando por | IF Lyrics' /}
 #{stylesheet id:'music-list', src:'musiclist.css' /}
 
-
+#{if name}
+<div class="header">
+    <p>Buscando por: <strong>${name}</strong></p>
+</div>
+#{/if}
+#{else}
 <div class="header">
     <h1>Músicas cadastradas</h1>
     <a class="btn" href="@{Musicas.form}"><i class="fas fa-plus"></i> Adicionar</a>
 </div>
+#{/else}
 <section class="box">
     <div class="music-list">
         #{list items:musics, as:'music'}
@@ -23,7 +29,7 @@
         </div>
         #{/list}
         #{else}
-        <h3>Nenhuma música cadastrada</h3>
+        <h3>Nada encontrado</h3>
         #{/else}
     </div>
 </section>
