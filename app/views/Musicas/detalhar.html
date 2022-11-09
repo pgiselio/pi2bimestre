@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title: musica.name + ' | IF Lyrics' /}
+#{set title: musica?.name ? musica?.name  + ' | IF Lyrics': 'Música não encontrada' + ' | IF Lyrics' /}
 
 #{if musica}
 

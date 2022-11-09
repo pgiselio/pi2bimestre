@@ -4,67 +4,18 @@
   <section id="top10">
     <h3>Top mais acessadas</h3>
     <ol class="podio">
+      #{list items:Top10, as:'music'}
       <li>
-        <a href="#">
-          <b>Meu Pedaço de Pecado</b>
-          <span>João Gomes</span>
+        <a href="@{Musicas.detalhar(music.id)}">
+          <b>${music.name}</b>
+          <span>ARTISTA - ${music.views} views</span>
         </a>
       </li>
-      <li>
-        <a href="#">
-          <b>Chega e Senta - Ao Vivo</b>
-          <span>John Amplificado</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <b>Arranhão - Ao vivo</b>
-          <span>Herinque & Juliano</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <b>Rolê</b>
-          <span>Tarcísio de Acordeon, Marcynho Sensação</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <b>Você beberia ou não beberia?</b>
-          <span>Zé Neto e Cristiano</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <b>Quer voar</b>
-          <span>Matuê</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <b>Ficha limpa</b>
-          <span>Gustavo Lima</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <b>Morena</b>
-          <span>Luan Santana</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <b>Ela e Ela</b>
-          <span>Zé Neto & Cristiano</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <b>baby me atende</b>
-          <span>Matheus Fernandes, Dilsinho</span>
-        </a>
-      </li>
+      #{/list}
     </ol>
+    #{else}
+      <span>Sem músicas disponíveis no momento!</span>
+    #{/else}
   </section>
   <section id="favEdit">
     <h3>Últimas Adições</h3>

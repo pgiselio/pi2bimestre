@@ -1,10 +1,13 @@
 package models.musica;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.dom4j.rule.Mode;
 
@@ -19,6 +22,10 @@ public class Musica extends Model{
     public String lyric;
     public int likes;
     public boolean isDeleted;
+    public long views;
+
+    @Temporal(TemporalType.DATE)
+    public Date additionDate;
 
     @ManyToOne
     public GeneroMusical gender;

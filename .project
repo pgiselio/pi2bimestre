@@ -15,9 +15,21 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.playframework.playclipse.playNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>docviewer</name>
+			<type>2</type>
+			<location>C:/Users/pgise/Documents/play-1.5.3/modules/docviewer/app</location>
+		</link>
+		<link>
+			<name>public/docviewer</name>
+			<type>2</type>
+			<location>C:/Users/20191064010023/Documents/play-1.5.3/modules/docviewer/public</location>
+		</link>
+	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1666195543428</id>
+			<id>1666205162413</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
