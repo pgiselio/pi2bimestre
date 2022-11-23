@@ -10,6 +10,7 @@ GET     /top-artistas                           Application.artistas
 
 GET     /auth/login                             Usuarios.loginForm
 GET     /auth/cadastro                          Usuarios.cadastroForm
+GET     /auth/confirmacao                       Usuarios.confirmacao
 
 GET     /search                                 Musicas.findByName
 GET     /musicas                                Musicas.listar
