@@ -13,12 +13,13 @@ GET     /auth/cadastro                          Usuarios.cadastroForm
 
 GET     /search                                 Musicas.findByName
 GET     /musicas                                Musicas.listar
+GET     /musicas/form                           Musicas.form
 GET     /musica/{id}                            Musicas.detalhar
 GET     /musica/{id}/editar                     Musicas.editar
+
 GET     /{artist}                               Artistas.index
 GET     /{artist}/{name}                        Musicas.detalharPorArtista
 
-GET
 
 
 
