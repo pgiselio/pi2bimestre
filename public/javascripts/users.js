@@ -1,26 +1,25 @@
 function validarCadastro(form) {
-    var nome = cadastroForm.nome;
-    var sobrenome = cadastroForm.sobrenome;
+    var firstname = cadastroForm.firstname;
+    var lastname = cadastroForm.lastname;
     var email = cadastroForm.email;
-    var senha = cadastroForm.senha;
-    var confirmSenha = cadastroForm.confirmSenha;
-    var sexo = cadastroForm.sexoOP;
-    var estado = cadastroForm.cmbEstado;
+    var password = cadastroForm.password;
+    var confirmPassword = cadastroForm.confirmPassword;
+    var genero = cadastroForm.genero;
+    var endereco = cadastroForm.endereco;
     var aux = 0;
     var erros = "";
     if (form != undefined) {
         if(form.value == "")
         form.classList.add("errorField");
     } else {
-        if (nome.value == "") {
+        if (firstname.value == "") {
             erros += "Nome não informado!<br/>";
-            nome.classList.add("errorField");
+            firstname.classList.add("errorField");
             aux++;
-
         }
-        if (sobrenome.value == "") {
+        if (lastname.value == "") {
             erros += "Sobrenome não informado!<br/>";
-            sobrenome.classList.add("errorField");
+            lastname.classList.add("errorField");
             aux++;
 
         }
@@ -30,33 +29,35 @@ function validarCadastro(form) {
             aux++;
 
         }
-        if (senha.value == "") {
+        if (password.value == "") {
             erros += "Senha não informada!<br/>";
-            senha.classList.add("errorField");
+            password.classList.add("errorField");
             aux++;
 
-        } else if (senha.value.length < 8 || senha.value.length > 20) {
+        } else if (password.value.length < 8 || password.value.length > 20) {
             erros += "A senha deve ter entre 8 e 20 caracteres!<br/>";
-            senha.classList.add("errorField");
+            password.classList.add("errorField");
             aux++;
 
-        } else if (confirmSenha.value == "") {
-            confirmSenha.classList.add("errorField");
+        }
+         if (confirmPassword.value == "") {
+            confirmPassword.classList.add("errorField");
             aux++;
         }
-        if (senha.value != confirmSenha.value) {
+        if (password.value != confirmPassword.value) {
             erros += "As senhas não conferem! <br/>";
-            senha.classList.add("errorField");
-            confirmSenha.classList.add("errorField");
+            password.classList.add("errorField");
+            confirmPassword.classList.add("errorField");
             aux++;
         }
-        if (sexo.value == "") {
+        if (genero.value == "") {
             erros += "Sexo não informado!<br/>";
+            genero.classList.add("errorField");
             aux++;
         }
-        if (estado.value == "") {
+        if (endereco.value == "") {
             erros += "Estado não informado!";
-            estado.classList.add("errorField");
+            endereco.classList.add("errorField");
             aux++;
         }
 

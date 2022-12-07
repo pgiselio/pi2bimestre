@@ -11,6 +11,7 @@ GET     /top-artistas                           Application.artistas
 GET     /auth/login                             Usuarios.loginForm
 GET     /auth/cadastro                          Usuarios.cadastroForm
 GET     /auth/confirmacao                       Usuarios.confirmacao
+GET     /auth/cadastrar                         Usuarios.cadastrar
 
 GET     /search                                 Musicas.findByName
 GET     /musicas                                Musicas.listar
@@ -18,8 +19,7 @@ GET     /musicas/form                           Musicas.form
 GET     /musica/{id}                            Musicas.detalhar
 GET     /musica/{id}/editar                     Musicas.editar
 
-GET     /{artist}                               Artistas.index
-GET     /{artist}/{name}                        Musicas.detalharPorArtista
+
 
 
 

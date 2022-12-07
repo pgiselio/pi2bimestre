@@ -1,51 +1,60 @@
-#{extends 'main.html' /} 
-#{set title:'Cadastrar-se | IF Lyrics' /} 
-#{script id:'usersScript' , src:'users.js', charset:'utf-8' /}
+#{extends 'main.html' /} #{set title:'Cadastrar-se | IF Lyrics' /} #{script
+id:'usersScript' , src:'users.js', charset:'utf-8' /}
 
 <div id="loginContainer">
-  #{if flash.success}
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					${flash.success}
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-			#{/if}
-			
-			#{if flash.error}
-				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					${flash.error}
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-			#{/if}
+  
   <h3>Cadastro</h3>
   <form
     id="loginform"
-    action="confirmacao.html"
+    action="@{Usuarios.cadastrar}"
     name="cadastroForm"
-    onsubmit="return validarCadastro();"
+    onsubmit="return validarCadastro()"
     method="GET"
   >
+  #{if flash.success}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    ${flash.success}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  #{/if} #{if flash.error}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    ${flash.error}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  #{/if}
     <div id="errorMessage">teste de erro</div>
     <input
       type="text"
-      name="nome"
-      class="txtSession txtSessionNomeSobre"
-      style="margin-right: 10px"
-      id=""
+      name="newUser.firstname"
+      class="txtSession"
+      id="firstname"
       placeholder="Nome*"
       onfocus="removeErrorClass(this);"
       onblur="validarCadastro(this);"
     />
     <input
       type="text"
-      name="sobrenome"
-      class="txtSession txtSessionNomeSobre"
+      name="newUser.lastname"
+      id="lastname"
+      class="txtSession"
       placeholder="Sobrenome*"
       onfocus="removeErrorClass(this);"
       onblur="validarCadastro(this);"
     />
     <input
       type="email"
-      name="email"
+      name="newUser.email"
+      id="email"
       class="txtSession"
       placeholder="E-mail*"
       onfocus="removeErrorClass(this);"
@@ -53,7 +62,8 @@
     />
     <input
       type="password"
-      name="senha"
+      name="newUser.password"
+      id="password"
       class="txtSession"
       placeholder="Senha*"
       onfocus="removeErrorClass(this);"
@@ -61,7 +71,8 @@
     />
     <input
       type="password"
-      name="confirmSenha"
+      name="newUser.confirmPassword"
+      id="confirmPassword"
       class="txtSession"
       placeholder="Confirmar senha*"
       onfocus="removeErrorClass(this);"
@@ -69,53 +80,23 @@
     />
     <div class="lbl1">
       <h5>Sexo*:</h5>
-      <span
-        ><input type="radio" name="sexoOP" value="M" id="sexM" class="sexo" />
-        <label for="sexM">Masculino</label></span
+      <select
+        name="newUser.genero"
+        id="genero"
+        class="cmb1"
+        onfocus="removeErrorClass(this);"
+        onblur="validarCadastro(this);"
       >
-      <span
-        ><input type="radio" name="sexoOP" value="F" id="sexF" class="sexo" />
-        <label for="sexF">Feminino</label></span
-      >
-    </div>
-
-    <div class="lbl1">
-      <h5>Gêneros musicais favoritos:</h5>
-      <table>
-        <tr>
-          <td>
-            <input type="checkbox" name="chkRock" id="chkRock" value="rock" />
-            <label for="chkRock">Rock</label>
-          </td>
-          <td>
-            <input type="checkbox" name="chkPop" id="chkPop" value="pop" />
-            <label for="chkPop">Pop</label>
-          </td>
-          <td>
-            <input type="checkbox" name="chkIndie" id="chkIndie" value="indie" />
-            <label for="chkIndie">Indie</label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="checkbox" name="chkMPB" id="chkMPB" value="mpb" />
-            <label for="chkMPB">MPB</label>
-          </td>
-          <td>
-            <input type="checkbox" name="chkFunk" id="chkFunk" value="funk" />
-            <label for="chkFunk">Funk</label>
-          </td>
-          <td>
-            <input type="checkbox" name="chkRap" id="chkRap" value="rap" />
-            <label for="chkRap">Rap</label>
-          </td>
-        </tr>
-      </table>
+        <option value="">Selecione</option>
+        <option value="MASCULINO">Masculino</option>
+        <option value="FEMININO">Feminino</option>
+        <option value="NAO_BINARIO">Não Binário</option>
+      </select>
     </div>
     <div class="lbl1">
       <h5>Estado*:</h5>
       <select
-        name="cmbEstado"
+        name="newUser.endereco"
         class="cmb1"
         onfocus="removeErrorClass(this);"
         onblur="validarCadastro(this);"

@@ -22,7 +22,7 @@ public class Usuarios extends Controller {
             flash.error("Login ou senha inválidos");
             loginForm();
         } else {
-            session.put("operador", user.email);
+            session.put("userSession", user.email);
         }
     }
 
@@ -31,7 +31,10 @@ public class Usuarios extends Controller {
                 "email = ?1",
                 newUser.email).first();
                 if (user == null) {
+                    newUser.criptografarSenha();
+                    newUser.save();
                     flash.success("Cadastro realizado com sucesso");
+                    cadastroForm();
                 } else {
                     cadastroForm();
                 }

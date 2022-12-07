@@ -6,7 +6,7 @@ import play.mvc.Controller;
 public class Seguranca extends Controller{
     @Before
     static void checkAuthentication() {
-    	if (session.get("operador") == null) {
+    	if (session.get("userSession") == null) {
     		flash.error("É necessário se autenticar no sistema!");
     		Usuarios.loginForm();
     	}

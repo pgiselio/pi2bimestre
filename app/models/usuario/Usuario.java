@@ -29,7 +29,8 @@ public class Usuario extends Model{
     public Genero genero;
 
     public void criptografarSenha(){
-        Crypt.crypt(password);
+        String passwordEnconded = Crypt.crypt(password);
+        this.password = passwordEnconded;
     }
     
 }
