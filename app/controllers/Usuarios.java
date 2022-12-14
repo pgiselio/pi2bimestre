@@ -6,15 +6,22 @@ import play.mvc.*;
 
 import java.util.*;
 
-import org.apache.commons.codec.digest.Crypt;
-
 import models.*;
+import models.localizacao.Endereco;
 import models.usuario.Usuario;
 
 public class Usuarios extends Controller {
 
+    @Before(only = { "perfil" })
+    static void checkAuthentication() {
+        if (session.get("userSession") == null) {
+            flash.error("É necessário se autenticar no sistema!");
+            Usuarios.loginForm();
+        }
+    }
+
     public static void login(String email, String password) {
-        String passwordEnconded = Crypt.crypt(password);
+        String passwordEnconded = Crypto.passwordHash(password);
         Usuario user = Usuario.find(
                 "email = ?1 and password = ?2",
                 email, passwordEnconded).first();
@@ -23,25 +30,27 @@ public class Usuarios extends Controller {
             loginForm();
         } else {
             session.put("userSession", user.email);
+            perfil();
         }
     }
 
-    public static void cadastrar(Usuario newUser){
+    public static void cadastrar(Usuario newUser) {
         Usuario user = Usuario.find(
                 "email = ?1",
                 newUser.email).first();
-                if (user == null) {
-                    newUser.criptografarSenha();
-                    newUser.save();
-                    flash.success("Cadastro realizado com sucesso");
-                    cadastroForm();
-                } else {
-                    cadastroForm();
-                }
+        if (user == null) {
+            newUser.criptografarSenha();
+            newUser.save();
+            flash.success("Cadastro realizado com sucesso");
+            cadastroForm();
+        } else {
+            flash.error("VISH!");
+            cadastroForm();
+        }
 
     }
 
-    public static void confirmacao(){
+    public static void confirmacao() {
         render();
     }
 
@@ -50,10 +59,11 @@ public class Usuarios extends Controller {
     }
 
     public static void cadastroForm() {
-        render();
+        List<Endereco> enderecos = Endereco.findAll();
+        render(enderecos);
     }
 
-    public static void perfil(){
+    public static void perfil() {
         render();
     }
 

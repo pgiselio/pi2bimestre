@@ -10,6 +10,9 @@
 * {
   font-family: "Bree Serif", sans-serif;
 }
+*, ::after, ::before {
+  box-sizing: border-box;
+}
 
 .alinhar {
   max-width: var(--tamanho-max);
@@ -51,7 +54,6 @@ body {
   background: #00888d;
 }
 input:not([id="txtBusca"], [type="submit"]), textarea {
-  flex: 1;
   padding: 10px 20px;
   background: #000;
   color: #fff;
@@ -83,9 +85,25 @@ input:focus, textarea:focus {
   gap: 10px;
   width: 100%;
 }
+
 .form-group > * {
   max-width: 100%;
 }
+
+.form-subhint {
+  margin-bottom: 3px;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  color: #818181;
+}
+
+input ~ .form-subhint{
+  padding: 0 5px;
+  margin-top: -20px;
+  margin-bottom: 10px;
+}
+
 #conteudo {
   min-height: 100vh;
   /* background-color: #0c0c0c;
@@ -143,6 +161,7 @@ input:focus, textarea:focus {
   list-style: none;
   float: left;
   margin-right: 2px;
+  position: relative;
 }
 
 #menu li a {
@@ -154,8 +173,9 @@ input:focus, textarea:focus {
   height: 100%;
   text-align: center;
   padding: 14px 16px 11px 16px;
-  border-radius: 15px;
+  border-radius: 5px;
   /* border-bottom: 2px solid transparent; */
+  white-space: nowrap;
 }
 
 #menu li a::after {
@@ -176,7 +196,7 @@ input:focus, textarea:focus {
   color: #008492;
 }
 
-#menu li a:hover {
+#menu li a:hover , #menu li:has(>ul):hover > a{
   /* background-color: #ffffff1a;
     border-bottom: 2px solid #50dfff; */
   color: #01aeb4;
@@ -186,11 +206,11 @@ input:focus, textarea:focus {
   width: 20px;
 }
 
-#menu li a:active:after {
+#menu li a:active::after, #menu li:has(>ul):hover > a::after{
   width: 15px;
 }
 
-#menu li a.active::after {
+#menu li a.active::after, #menu li:has(>ul):hover > a::after{
   background-color: #008492;
   width: 4px;
 }
@@ -202,6 +222,38 @@ input:focus, textarea:focus {
 
 #menu li a.active:active::after {
   width: 15px;
+}
+
+#menu li ul{
+  display: none;
+  position: absolute;
+  background-color: #222222;
+  border-radius: 0 0 5px 5px;
+  border: 1px solid #0f0f0f;
+  right: 0;
+  padding: 5px;
+  min-width: 100px;
+  height: fit-content;
+}
+#menu li ul li{
+  display: flex;
+}
+#menu li ul li a{
+  padding: 5px 15px;
+  text-align: start;
+  width: 100%;
+}
+#menu li ul li a:hover {
+  color: #fff;
+  background-color: #141414;
+}
+#menu li ul li a::after {
+  display: none;
+}
+#menu li:hover ul {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 #logo {
@@ -374,6 +426,7 @@ footer h4 {
 }
 
 #rodape {
+  display: flex;
   padding-top: 30px;
   padding-bottom: 60px;
   max-width: var(--tamanho-max);
@@ -688,7 +741,7 @@ footer h4 {
   border-radius: 10px;
   width: 100%;
   border: 2px solid #2f2f2f;
-  outline: none;  
+  outline: none;
 }
 .cmb1:focus {
   border: 2px solid #17bfae;
@@ -703,7 +756,7 @@ footer h4 {
   text-align: center;
 }
 
-#loginform {
+.access-form {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
@@ -731,7 +784,6 @@ footer h4 {
 .txtSession {
   display: inline-block;
   padding: 10px 20px;
-  width: calc(100% - 40px);
   max-width: 100%;
   margin-bottom: 20px;
   background: #000;

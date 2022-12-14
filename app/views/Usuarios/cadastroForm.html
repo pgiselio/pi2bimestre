@@ -1,14 +1,15 @@
-#{extends 'main.html' /} #{set title:'Cadastrar-se | IF Lyrics' /} #{script
-id:'usersScript' , src:'users.js', charset:'utf-8' /}
+#{extends 'main.html' /} #{set title:'Cadastrar-se | IF Lyrics' /} 
+#{script id:'usersScript' , src:'users.js', charset:'utf-8' /}
 
 <div id="loginContainer">
   
   <h3>Cadastro</h3>
   <form
-    id="loginform"
+    class="access-form"
+    id="cadastroform"
     action="@{Usuarios.cadastrar}"
     name="cadastroForm"
-    onsubmit="return validarCadastro()"
+    onsubmit="return validarCadastro();"
     method="GET"
   >
   #{if flash.success}
@@ -35,7 +36,7 @@ id:'usersScript' , src:'users.js', charset:'utf-8' /}
     <div id="errorMessage">teste de erro</div>
     <input
       type="text"
-      name="newUser.firstname"
+      name="newUser.firstName"
       class="txtSession"
       id="firstname"
       placeholder="Nome*"
@@ -44,7 +45,7 @@ id:'usersScript' , src:'users.js', charset:'utf-8' /}
     />
     <input
       type="text"
-      name="newUser.lastname"
+      name="newUser.lastName"
       id="lastname"
       class="txtSession"
       placeholder="Sobrenome*"
@@ -69,6 +70,7 @@ id:'usersScript' , src:'users.js', charset:'utf-8' /}
       onfocus="removeErrorClass(this);"
       onblur="validarCadastro(this);"
     />
+    <span class="form-subhint">A senha deve ter no mínimo 8 caracteres.</span>
     <input
       type="password"
       name="newUser.confirmPassword"
@@ -96,39 +98,15 @@ id:'usersScript' , src:'users.js', charset:'utf-8' /}
     <div class="lbl1">
       <h5>Estado*:</h5>
       <select
-        name="newUser.endereco"
+        name="newUser.endereco.id"
         class="cmb1"
         onfocus="removeErrorClass(this);"
         onblur="validarCadastro(this);"
       >
         <option value="">Selecione</option>
-        <option value="AC">Acre</option>
-        <option value="AL">Alagoas</option>
-        <option value="AP">Amapá</option>
-        <option value="AM">Amazonas</option>
-        <option value="BA">Bahia</option>
-        <option value="CE">Ceará</option>
-        <option value="DF">Distrito Federal</option>
-        <option value="ES">Espirito Santo</option>
-        <option value="GO">Goiás</option>
-        <option value="MA">Maranhão</option>
-        <option value="MT">Mato Grosso</option>
-        <option value="MS">Mato Grosso do Sul</option>
-        <option value="MG">Minas Gerais</option>
-        <option value="PA">Pará</option>
-        <option value="PB">Paraíba</option>
-        <option value="PR">Paraná</option>
-        <option value="PE">Pernambuco</option>
-        <option value="PI">Piauí</option>
-        <option value="RJ">Rio de Janeiro</option>
-        <option value="RN">Rio Grande do Norte</option>
-        <option value="RS">Rio Grande do Sul</option>
-        <option value="RO">Rondônia</option>
-        <option value="RR">Roraima</option>
-        <option value="SC">Santa Catarina</option>
-        <option value="SP">São Paulo</option>
-        <option value="SE">Sergipe</option>
-        <option value="TO">Tocantins</option>
+          #{list items:enderecos, as:'e'}
+            <option value="${e.id}">${e.ufPorExtenso}</option>
+          #{/list}
       </select>
     </div>
     <input type="submit" value="Cadastrar" class="buttonSession" />

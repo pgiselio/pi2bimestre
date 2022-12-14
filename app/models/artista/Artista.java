@@ -17,9 +17,6 @@ public class Artista extends Model{
     public String name;
     public String biography;
 
-    @OneToMany
-    public List<Musica> authorship;
-
     @Embedded
     public RedeSocial socialNetwork;
 
