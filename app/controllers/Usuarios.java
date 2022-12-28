@@ -1,25 +1,19 @@
 package controllers;
 
 import play.*;
+import play.cache.Cache;
 import play.libs.Crypto;
 import play.mvc.*;
 
 import java.util.*;
 
 import models.*;
+import models.cache.SessionStorage;
 import models.localizacao.Endereco;
 import models.usuario.Usuario;
 
+@With(GetUserLoggedIn.class)
 public class Usuarios extends Controller {
-
-    @Before(only = { "perfil" })
-    static void checkAuthentication() {
-        if (session.get("userSession") == null) {
-            flash.error("É necessário se autenticar no sistema!");
-            Usuarios.loginForm();
-        }
-    }
-
     public static void login(String email, String password) {
         String passwordEnconded = Crypto.passwordHash(password);
         Usuario user = Usuario.find(
@@ -30,7 +24,10 @@ public class Usuarios extends Controller {
             loginForm();
         } else {
             session.put("userSession", user.email);
-            perfil();
+            SessionStorage sessionStorage = new SessionStorage();
+            sessionStorage.usuarioLogado = user;
+            Cache.set(session.getId(), sessionStorage);
+            perfil(user.id);
         }
     }
 
@@ -63,8 +60,9 @@ public class Usuarios extends Controller {
         render(enderecos);
     }
 
-    public static void perfil() {
-        render();
+    public static void perfil(Long id) {
+        Usuario user = Usuario.findById(id);
+        render(user);
     }
 
     public static void logout() {

@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import models.localizacao.Endereco;
 import models.musica.Musica;
@@ -26,6 +27,9 @@ public class Usuario extends Model{
 
     @ManyToMany
     public List<Musica> musicasFavoritas;
+
+    @OneToMany
+    public List<Musica> musicasEnviadas;
     
     @Enumerated(EnumType.STRING)
     public Genero genero;
@@ -33,6 +37,10 @@ public class Usuario extends Model{
     public void criptografarSenha(){
         String passwordEnconded = Crypto.passwordHash(password);
         this.password = passwordEnconded;
+    }
+
+    public String toString() {
+        return this.firstName + " " + this.lastName;
     }
     
 }

@@ -12,6 +12,8 @@ GET     /auth/login                             Usuarios.loginForm
 GET     /auth/cadastro                          Usuarios.cadastroForm
 GET     /auth/confirmacao                       Usuarios.confirmacao
 GET     /auth/cadastrar                         Usuarios.cadastrar
+GET     /perfil/{id}                            Usuarios.perfil
+
 
 GET     /search                                 Musicas.findByName
 GET     /musicas                                Musicas.listar

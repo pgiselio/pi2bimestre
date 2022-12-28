@@ -7,9 +7,7 @@ import java.util.*;
 
 import models.*;
 
-/**
- * Artistas
- */
+@With(GetUserLoggedIn.class)
 public class Artistas extends Controller {
 
     public static void index() {

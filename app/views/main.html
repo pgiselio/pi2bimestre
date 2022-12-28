@@ -56,9 +56,9 @@
                             request.action=="Usuarios.cadastroForm" }class="active" #{/if}>Entrar</a></li>
                     #{/if}
                     #{else}
-                        <li><a href="@{Usuarios.perfil}" #{if request.action=="Usuarios.perfil" }class="active"
+                        <li><a href="@{Usuarios.perfil(usuarioLogado.id)}" #{if request.action=="Usuarios.perfil" }class="active"
                             #{/if}>Perfil</a><ul>
-                            <li><a href="#">Visitar perfil ()</a></li>
+                            <li><a href="#">${usuarioLogado}</a></li>
                             <li><a href="#">Seus envios</a></li>
                             <li><a href="#">Favoritos</a></li>
                             <li><a href="@{Usuarios.logout}">Sair</a></li>

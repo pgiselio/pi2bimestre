@@ -1,3 +1,14 @@
 #{extends 'main.html' /} 
 #{set title:'Meu perfil | IF Lyrics' /}
 
+<img src="" alt="Foto de perfil" width="70" height="70"/>
+<h2>${user}</h2>
+
+#{list items:user.musicasEnviadas, as:'music'}
+    <div class="musica">
+        <div class="musica-info">
+            <h3>${music.nome}</h3>
+            <p>${music.artista}</p>
+        </div>
+    </div>
+#{/list}

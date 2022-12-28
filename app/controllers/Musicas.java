@@ -7,7 +7,9 @@ import java.util.*;
 
 import models.*;
 import models.musica.Musica;
+import models.usuario.Usuario;
 
+@With(Seguranca.class)
 public class Musicas extends Controller {
     public static void index() {
         render();
@@ -62,7 +64,11 @@ public class Musicas extends Controller {
     }
 
     public static void save(Musica music) {
+        Usuario usuario = Usuario.find("email = ?1", session.get("userSession")).first();
+        music.additionDate = new Date();
+        music.sendedBy = usuario;
         music.save();
+        usuario.musicasEnviadas.add(music);
         listar();
     }
 
