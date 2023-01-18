@@ -1,0 +1,25 @@
+#{extends 'main.html' /}
+#{set title:'Artista | IF Lyrics' /}
+#{stylesheet id:'artist', src:'artista.css' /}
+
+<div id="inicio">
+    <img id="img1" src="/public/images/artistas/coldplay.webp" title="Coldplay">
+    <div id="titulos">
+        <h2>${artist.name}</h2>
+        <span>
+            <a href="https://www.youtube.com/channel/UCDPM_n1atn2ijUwHd0NNRQw" target="_blank"><img
+                src="/public/images/yt.png" title="Ver artista no YouTube" height="20"></a>
+            <a href="https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU?si=X7cp_lREQOma--XSYjEcQw&dl_branch=1"
+            target="_blank"><img src="/public/images/spotify.svg" title="Ver artista no Spotify" height="20"></a>
+        </span>
+    </div>
+</div>
+
+<div id="sobre">
+
+
+    <h3 class="texto1">Sobre o artista</h3>
+    <p>${artist.biography}</p>
+    
+</div>
+<h1>Músicas</h1>

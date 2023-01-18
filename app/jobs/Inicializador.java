@@ -1,9 +1,14 @@
 package jobs;
 
+import java.util.Collections;
+
 import org.apache.commons.codec.digest.Crypt;
 
+import models.artista.Artista;
 import models.localizacao.Endereco;
+import models.musica.Musica;
 import models.usuario.Genero;
+import models.usuario.Papel;
 import models.usuario.Usuario;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
@@ -74,12 +79,20 @@ public class Inicializador extends Job {
 			Endereco endereco = Endereco.find("uf = ?1", "RN").first();
 			admin.email = "admin";
 			admin.password = "admin";
-			admin.firstName = "admin";
-			admin.lastName = "admin";
+			admin.firstName = "Admin";
+			admin.lastName = "da Silva";
 			admin.endereco = endereco;
 			admin.genero = Genero.MASCULINO;
+			admin.papel = Papel.ADMINISTRADOR;
 			admin.criptografarSenha();
 			admin.save();
+		}
+		if (Artista.count() == 0) {
+			Artista artista = new Artista();
+			artista.name = "Artista Teste";
+			artista.biography = "Biografia do artista";
+			artista.musics = Collections.<Musica>emptyList();
+			artista.save();
 		}
 		System.out.println("O banco foi populado!");
 	}

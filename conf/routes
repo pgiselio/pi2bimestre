@@ -7,12 +7,13 @@ GET     /                                       Application.index
 GET     /sobre                                  Application.sobre
 GET     /top-artistas                           Application.artistas
 
+GET     /a/{id}                                 Artistas.detalhar
 
 GET     /auth/login                             Usuarios.loginForm
 GET     /auth/cadastro                          Usuarios.cadastroForm
 GET     /auth/confirmacao                       Usuarios.confirmacao
 GET     /auth/cadastrar                         Usuarios.cadastrar
-GET     /perfil/{id}                            Usuarios.perfil
+GET     /user/{id}                            Usuarios.perfil
 
 
 GET     /search                                 Musicas.findByName

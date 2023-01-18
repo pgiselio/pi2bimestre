@@ -676,8 +676,15 @@ footer h4 {
 .music-links img {
   height: 20px;
 }
+.fav-button {
+  color: #ccc;
+  font-size: 18px;
+}
+.fav-button.favorited {
+  color: #ff4726;
+}
 
-#musicaContent a {
+#musicaContent a.artist-link {
   text-decoration: none;
   color: #17bfae;
   padding: 4px 0;

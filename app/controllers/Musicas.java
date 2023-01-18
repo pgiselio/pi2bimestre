@@ -6,6 +6,7 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+import models.artista.Artista;
 import models.musica.Musica;
 import models.usuario.Usuario;
 
@@ -20,12 +21,15 @@ public class Musicas extends Controller {
     }
 
     public static void detalhar(Long id) {
+        Usuario user = Usuario.find("email = ?1", session.get("userSession")).first();
+        Boolean isFavorite = user.musicasFavoritas.contains(Musica.findById(id));
         Musica musica = Musica.findById(id);
+        Artista artist = Artista.find("musics in ?1", musica).first();
         if (musica != null) {
             musica.views++;
             musica.save();
         }
-        render(musica);
+        render(musica, isFavorite);
     }
 
     public static void detalharPorArtista(String artist, String name) {
@@ -68,7 +72,6 @@ public class Musicas extends Controller {
         music.additionDate = new Date();
         music.sendedBy = usuario;
         music.save();
-        usuario.musicasEnviadas.add(music);
         listar();
     }
 
@@ -78,7 +81,19 @@ public class Musicas extends Controller {
         music.save();
         listar();
     }
-
+    
+    public static void favoritar(Long id) {
+        Usuario usuario = Usuario.find("email = ?1", session.get("userSession")).first();
+        Musica musica = Musica.findById(id);
+        Boolean isFavorite = usuario.musicasFavoritas.contains(musica);
+        if (isFavorite) {
+            usuario.musicasFavoritas.remove(musica);
+        } else {
+            usuario.musicasFavoritas.add(musica);
+        }
+        usuario.save();
+        detalhar(id);
+    }
     public static void editar(Long id) {
         Musica music = Musica.findById(id);
         renderTemplate("Musicas/form.html", music);

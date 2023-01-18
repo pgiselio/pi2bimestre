@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -18,6 +20,9 @@ import play.db.jpa.Model;
 
 @Entity
 public class Musica extends Model{
+    @Id
+    @GeneratedValue
+    public Long id;
     
     public String name;
 

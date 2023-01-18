@@ -1,14 +1,28 @@
 #{extends 'main.html' /} 
 #{set title:'Meu perfil | IF Lyrics' /}
+#{stylesheet id:'music-list', src:'musiclist.css' /}
 
 <img src="" alt="Foto de perfil" width="70" height="70"/>
 <h2>${user}</h2>
 
-#{list items:user.musicasEnviadas, as:'music'}
-    <div class="musica">
-        <div class="musica-info">
-            <h3>${music.nome}</h3>
-            <p>${music.artista}</p>
+<h3>Seus ultimos envios</h3>
+<section class="box">
+    <div class="music-list">
+        #{list items:musics, as:'music'}
+        <div class="music">
+            <div class="titles">
+                <h3 class="card-title">${music.name}</h3>
+                <h6 class="card-subtitle mb-2 text-muted">artista</h6>
+            </div>
+            <div class="actions">
+                <a href="@{Musicas.detalhar(music.id)}" class="btn">Detalhar</a>
+                <a href="@{Musicas.editar(music.id)}" class="btn"><i class="fas fa-pencil"></i></a>
+                <a href="@{Musicas.delete(music.id)}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+            </div>
         </div>
+        #{/list}
+        #{else}
+        <h3>Nada encontrado</h3>
+        #{/else}
     </div>
-#{/list}
+</section>

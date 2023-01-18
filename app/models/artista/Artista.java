@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -13,7 +15,10 @@ import play.db.jpa.Model;
 
 @Entity
 public class Artista extends Model{
-    
+    @Id
+    @GeneratedValue
+    public Long id;
+
     public String name;
     public String biography;
 

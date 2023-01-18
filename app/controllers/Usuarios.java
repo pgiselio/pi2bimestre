@@ -10,6 +10,7 @@ import java.util.*;
 import models.*;
 import models.cache.SessionStorage;
 import models.localizacao.Endereco;
+import models.musica.Musica;
 import models.usuario.Usuario;
 
 @With(GetUserLoggedIn.class)
@@ -62,9 +63,9 @@ public class Usuarios extends Controller {
 
     public static void perfil(Long id) {
         Usuario user = Usuario.findById(id);
-        render(user);
+        List<Musica> musics = Musica.find("sendedBy = ?1 AND isDeleted = ?2", user, false).fetch(5);
+        render(user, musics);
     }
-
     public static void logout() {
         session.clear();
         Application.index();
