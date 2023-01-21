@@ -1,44 +1,72 @@
 #{extends 'main.html' /}
-#{set title: musica?.name ? musica?.name + ' | IF Lyrics': 'Música não encontrada' + ' | IF Lyrics' /}
+#{set title: musica?.name ? musica?.name + ' - ' + musica.artist.name + ' | IF Lyrics': 'Música não encontrada' + ' | IF
+Lyrics' /}
 
 #{if musica}
 
-<table id="musicaContent">
-    <tr>
-        <th rowspan="2">
-            <img src="/public/images/blank-profilepic.png" title="Artista" id="music-artist-img">
-        </th>
-        <td>
-            <h1>
-                ${musica.name}
-
-                <!-- <a href="https://youtu.be/-N4jf6rtyuw" class="music-links" target="_blank"><img src="/public/images/yt.png"
-                    title="Abrir música no YouTube"></a>
-                <a href="https://open.spotify.com/track/1vxw6aYJls2oq3gW0DujAo?si=bb6a26b8e5d54846"
-                target="_blank" class="music-links"><img src="/public/images/spotify.svg" title="Abrir música no Spotify"></a> -->
-                #{if isFavorite}
-        <a href="@{Musicas.favoritar(musica.id)}" class="fav-button favorited"><i class="fas fa-heart"></i>
-            </a>
+<div class="musica-header">
+    <img src="/public/images/blank-profilepic.png" title="Artista" class="music-artist-img">
+    <div class="musica-info">
+        <h1>
+            ${musica.name}
+        </h1>
+        #{if musica.artist}
+        <h3>
+            <a href="@{Artistas.detalharPeloNome(musica.artist.urlString)}"
+                class="artist-link">${musica.artist.name}</a>
+        </h3>
         #{/if}
-        #{else}
-        <a href="@{Musicas.favoritar(musica.id)}" class="fav-button"><i class="far fa-heart"></i>
-        </a>
-        #{/else}
-            </h1>
-           
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <h3><a href="#" class="artist-link">ARTISTA</a></h3>
-        </td>
-    </tr>
-</table>
+    </div>
+</div>
 
-<div id="letraMusica">
-    <pre>
+
+<div class="musica-container-bloco2">
+    <div class="musica-panel-links">
+        <li>
+            #{if isFavorite == true}
+            <a href="@{Musicas.favoritar(musica.id)}" class="fav-button favorited" aria-title="Remover dos favoritos"><i
+                    class="fas fa-heart"></i>
+            </a>
+            #{/if}
+            #{elseif isFavorite == false}
+            <a href="@{Musicas.favoritar(musica.id)}" class="fav-button" aria-title="Adicionar aos favoritos"><i
+                    class="far fa-heart"></i>
+            </a>
+            #{/elseif}
+        </li>
+        <li>
+            <i class="fas fa-share-nodes music-share-icon" aria-title="Compartilhar" onclick="navigator.share({
+title: '${musica.name} - ${musica.artist.name}',
+text: 'Veja a letra dessa música no IF Lyrics',
+url: window.location.href,
+            })"></i>
+        </li>
+        <li>
+            <a href="https://youtu.be/-N4jf6rtyuw" class="music-links" target="_blank"
+                aria-title="Abrir música no YouTube"><img src="/public/images/yt.png"
+                    title="Abrir música no Spotify"></a>
+        </li>
+        <li>
+            <a href="https://open.spotify.com/track/1vxw6aYJls2oq3gW0DujAo?si=bb6a26b8e5d54846" target="_blank"
+                class="music-links" aria-title="Abrir música no Spotify"><img src="/public/images/spotify.svg"></a>
+        </li>
+
+    </div>
+    <div class="letraMusica">
+
+        <div>
+            <pre>
 ${musica.lyric}
-    </pre>
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="music-extrainfo">
+    Enviada por: <a href="@{Usuarios.perfil(musica.sendedBy.id)}"><b>${musica.sendedBy.firstName}</b></a>
+    em: <b> ${musica.additionDate.format('dd/MM/yyyy')}</b>
+    #{if session.get('userSession')}
+    - Viu algum erro? <a href="@{Musicas.editar(musica.id)}" class="edit-button"> Faça uma alteração.</a>
+    #{/if}
 </div>
 #{/if}
 #{else}

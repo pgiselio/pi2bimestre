@@ -13,18 +13,23 @@ import javax.persistence.OneToMany;
 
 import models.localizacao.Endereco;
 import models.musica.Musica;
-import play.db.jpa.Model;
+import play.data.validation.Unique;
+import play.db.jpa.Blob;
+import play.db.jpa.GenericModel;
 import play.libs.Crypto;
 
 @Entity
-public class Usuario extends Model{
+public class Usuario extends GenericModel{
     @Id
     @GeneratedValue
     public Long id;
     
     public String firstName;
     public String lastName;
+
+    @Unique(message="Já existe um usuário com este email")
     public String email;
+
     public String password;
 
     @ManyToOne
@@ -35,9 +40,12 @@ public class Usuario extends Model{
     
     @Enumerated(EnumType.STRING)
     public Genero genero;
+    
+    public Blob photo;
 
     @Enumerated(EnumType.STRING)
 	public Papel papel;
+
 
     public void criptografarSenha(){
         String passwordEnconded = Crypto.passwordHash(password);

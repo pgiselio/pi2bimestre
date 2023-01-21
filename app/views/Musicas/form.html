@@ -1,8 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Adicionar nova música | IF Lyrics' /}
-
+#{stylesheet id:'select2', src:'select2.css', title:'Select stylesheet' /}
+<script src="@{'/public/javascripts/select2.min.js'}"
+    integrity="sha512-9p/L4acAjbjIaaGXmZf0Q2bV42HetlCLbv8EP0z3rLbQED2TAFUlDvAezy7kumYqg5T8jHtDdlm1fgIsr5QzKg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div class="header">
-    #{if music}
+    #{if music.id}
     #{set title:'Editar "'+ music.name +'" | IF Lyrics' /}
 
     <h1>Editar música</h1>
@@ -11,13 +14,38 @@
     <h1>Adicionar nova música</h1>
     #{/else}
 </div>
-<form action="@{Musicas.save}" method="post">
-    <input type="hidden" name="music.id" value="${music?.id}"/>
+<form #{if music.id} action="@{Musicas.saveEditar}" #{/if} #{else} action="@{Musicas.save}"#{/else} method="post">
+    #{ifErrors}
+    <span id="errorMessage" style="display: block;">
+        #{list items:errors, as:'error'}
+        <div>${error}</div>
+        #{/list}
+    </span>
+    #{/ifErrors}
+
+    <input type="hidden" name="music.id" value="${music?.id}" />
     <div class="form-group">
-        <input type="text" name="music.name" placeholder="Título" style="width: 300px;" value="${music?.name}" />
-        <textarea name="music.lyric" id="lyric" cols="30" rows="10"
-            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-            placeholder="Letra da música">${music?.lyric}</textarea>
+        <div class="lbl">
+            <label for="music.artist.id">Artista / Banda:</label>
+            <select class="select2" id="music.artist.id" name="music.artist.id" style="width: 300px;">
+                <option value="${music?.artist?.id}">${music?.artist?.name}</option>
+            </select>
+            <span style="display: none;" id="newArtistMsg">**Criando novo artista</span>
+        </div>
+        <input hidden name="newartist.name" id="newArtist" value="" />
+        <div class="lbl">
+            <label for="music.name">Título:</label>
+            <input type="text" id="music.name" name="music.name" placeholder="Título" style="width: 300px;"
+                value="${music?.name}" />
+        </div>
+
+        <div class="lbl">
+            <label for="lyric">Letra:</label>
+            <textarea name="music.lyric" id="lyric" cols="30" rows="10"
+                oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+                placeholder="Letra da música">${music?.lyric}</textarea>
+        </div>
+
         <button type="submit" class="btn">Enviar</button>
     </div>
 </form>
@@ -25,4 +53,59 @@
 <script>
     let lyric = document.querySelector("#lyric");
     lyric.style.height = lyric.scrollHeight + "px";
+    var updateUserRoute = #{ jsRoute @Artistas.getArtistas() /}
+    var newArtistField = document.getElementById('newArtist');
+    $(document).ready(function () {
+
+        $('.select2').select2(
+            {
+                placeholder: 'Selecione um artista',
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+
+                    if (term === '') {
+                        return null;
+                    }
+                    return {
+                        id: -1,
+                        text: term,
+                        newTag: true // add additional parameters
+                    }
+                },
+                ajax: {
+                    url: updateUserRoute.url,
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            term: params.term
+                        }
+                        // Query parameters will be ?search=[term]&type=public
+                        return query;
+                    },
+                    processResults: function (data) {
+                        // Transforms the top-level key of the response object from 'items' to 'results'
+                        data.forEach(item => {
+                            item["text"] = item["name"];
+                            delete item["name"];
+                        });
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            }
+        );
+        $('.select2').on('select2:select', function (e) {
+            let tag = e.params.data;
+            if (tag.newTag === true) {
+                newArtistField.setAttribute('value', tag.text);
+                $('#newArtistMsg').show();
+            }
+            else {
+                newArtistField.removeAttribute('value');
+                $('#newArtistMsg').hide();
+            }
+        });
+    });
 </script>

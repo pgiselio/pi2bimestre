@@ -8,7 +8,7 @@
       <li>
         <a href="@{Musicas.detalhar(music.id)}">
           <b>${music.name}</b>
-          <span>ARTISTA - ${music.views} views</span>
+          <span>${music.artist.name} - ${music.views} views</span>
         </a>
       </li>
       #{/list}

@@ -2,6 +2,7 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import security.GetUserLoggedIn;
 
 import java.util.*;
 
@@ -14,7 +15,6 @@ public class Application extends Controller {
 
     public static void index() {
         Usuario user = Usuario.find("email = ?1", session.get("userSession")).first();
-        System.out.println(user);
         List<Musica> Top10 =  Musicas.listarTop10();
         render(Top10, user);
     }

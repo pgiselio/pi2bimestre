@@ -1,0 +1,16 @@
+#{extends 'main.html' /}
+#{set title:'Artista | IF Lyrics' /}
+
+<form action="@{Artistas.salvar}">
+    #{ifErrors}
+    <span id="errorMessage" style="display: block;">
+        #{list items:errors, as:'error'}
+        <div>${error}</div>
+        #{/list}
+    </span>
+    #{/ifErrors}
+
+   <input name="artista.name" placeholder="Nome do artista"/>
+   <button type="submit" class="btn">Enviar</button>
+
+</form>

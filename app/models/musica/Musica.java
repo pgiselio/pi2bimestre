@@ -16,22 +16,27 @@ import org.dom4j.rule.Mode;
 
 import models.artista.Artista;
 import models.usuario.Usuario;
-import play.db.jpa.Model;
+import play.data.validation.Required;
+import play.db.jpa.GenericModel;
 
 @Entity
-public class Musica extends Model{
+public class Musica extends GenericModel{
     @Id
     @GeneratedValue
     public Long id;
     
+    @Required(message="O título da música é obrigatório")
     public String name;
 
     @Column(columnDefinition = "TEXT")
     public String lyric;
-    public int likes;
     public boolean isDeleted;
     public long views;
 
+    public boolean approved;
+    public boolean approvedByMod;
+
+    @Required(message="É necessário informar um artista")
     @ManyToOne
     public Artista artist;
 
@@ -44,4 +49,7 @@ public class Musica extends Model{
     @ManyToOne
     public GeneroMusical gender;
 
+    public long getFavoriteNumber() {
+        return Usuario.count("musicasFavoritas = ?1", this);
+    }
 }

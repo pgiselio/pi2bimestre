@@ -1,4 +1,4 @@
-package controllers;
+package security;
 
 import models.usuario.Usuario;
 import play.mvc.Before;

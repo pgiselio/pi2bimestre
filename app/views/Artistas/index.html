@@ -1,30 +1,22 @@
-#{extends 'main.html' /} 
+#{extends 'main.html' /}
 #{set title:'Top Artistas | IF Lyrics' /}
 <div class="paginaInicial">
   <section id="topArtistas">
-    <h3>Top Artistas</h3>
+    <h3>Top 100 Artistas</h3>
     <div>
       <ol id="podioArt" class="podio">
         #{list items:artists, as:'artist'}
         <li>
-          <a href="@{Artistas.detalhar(artist.id)}"
-            ><img
-              class="artistasImg"
-              src="/public/images/artistas/Billie/bili.jpg"
-              alt=""
-            /><b>${artist.name}</b></a
-          >
+          <a href="@{Artistas.detalhar(artist.id)}">
+            #{if artist.photo.exists()}
+            <img class="artistasImg" src="@{downloadFoto(artist.id)}" title="${artist.name}">
+            #{/if}
+            #{else}
+            <img class="artistasImg" src="@{'public/images/blank-profilepic.png'}" title="${artist.name}">
+            #{/else}
+            <b>${artist.name}</b></a>
         </li>
         #{/list}
-        <li>
-          <a href="artistas/coldplay.html"
-            ><img
-              class="artistasImg"
-              src="/public/images/artistas/coldplay.webp"
-              alt=""
-            /><b>Coldplay</b></a
-          >
-        </li>
       </ol>
     </div>
   </section>

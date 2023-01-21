@@ -4,14 +4,21 @@
 
 <head>
     <title>#{get 'title' /}</title>
-    <meta charset="${_response_encoding}">
-    <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+    <meta charset="utf-8">
+    
     <link rel="stylesheet" href="@{'/public/stylesheets/style.css'}">
     <link rel="stylesheet" href="@{'/public/stylesheets/fonts.css'}">
     <link rel="stylesheet" href="@{'/public/stylesheets/fonts/fontawesome-free-6.0.0-beta2-web/css/all.css'}">
     #{get 'moreStyles' /}
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <script src="@{'/public/javascripts/jquery-3.4.1.min.js'}"
+        integrity="sha512-bnIvzh6FU75ZKxp0GXLH9bewza/OIw6dLVh9ICg0gogclmYGguQJWl8U30WpbsGTqbIiAwxTsbe76DErLq5EDQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -35,19 +42,21 @@
                         <form id="search-form" action="@{Musicas.findByName}" type="search">
                             <div class="search-input">
                                 <input type="search" name="name" id="txtBusca" onblur="ocultarSearch();"
-                                    onfocus="expandirSearch();" autocomplete="off" placeholder="Pesquisar... " #{if request.action=="Musicas.findByName" }value="${request.params.get("name")}"
-                                    #{/if}/>
+                                    onfocus="expandirSearch();" autocomplete="off" placeholder="Pesquisar... " #{if
+                                    request.action=="Musicas.findByName" }value="${request.params.get(" name")}"
+                                    #{/if} />
                                 <i id="search-icon" class="fas fa-search"></i>
                             </div>
-                            <button type="submit" class="search-btn" title="pesquisar"><i class="fas fa-search"></i></button>
+                            <button type="submit" class="search-btn" title="pesquisar"><i
+                                    class="fas fa-search"></i></button>
                         </form>
                     </li>
                 </ul>
                 <ul id="menu">
+                    <li><a href="@{Application.index}" #{if request.action=="Application.index" }class="active"
+                            #{/if}>Inicio</a></li>
                     <li><a href="@{Artistas.index}" #{if request.action=="Artistas.index" }class="active"
                             #{/if}>Artistas</a></li>
-                    <li><a href="@{Musicas.listar}" #{if request.action=="Musicas.listar" }class="active"
-                            #{/if}>Músicas</a></li>
                     <li><a href="@{Application.sobre}" #{if request.action=="Application.sobre" }class="active"
                             #{/if}>Sobre</a></li>
                     <span class="divisor-nav"></span>
@@ -56,13 +65,26 @@
                             request.action=="Usuarios.cadastroForm" }class="active" #{/if}>Entrar</a></li>
                     #{/if}
                     #{else}
-                        <li><a href="@{Usuarios.perfil(usuarioLogado.id)}" #{if request.action=="Usuarios.perfil" }class="active"
-                            #{/if}>Perfil</a><ul>
-                            <li><a href="#">${usuarioLogado}</a></li>
-                            <li><a href="#">Seus envios</a></li>
+                    <li><a href="@{Usuarios.perfil(usuarioLogado?.id)}" #{if request.action=="Usuarios.perfil"
+                            }class="active" #{/if}>Perfil</a>
+                        <ul>
+                            <li><a href="@{Usuarios.perfil(usuarioLogado?.id)}">
+                                    #{if usuarioLogado?.photo?.exists()}
+                                    <img class="profile-picture" src="@{downloadFoto(usuarioLogado?.id)}"
+                                        title="${usuarioLogado.name}" height="30" width="30">
+                                    #{/if}
+                                    #{else}
+                                    <img class="profile-picture" src="@{'public/images/blank-profilepic.png'}"
+                                        height="30" width="30">
+                                    #{/else}
+                                    <span>
+                                        ${usuarioLogado}</span></a></li>
+                            <li><a href="@{Usuarios.contribuicoes(usuarioLogado?.id)}">Suas contribuições</a></li>
+                            <li><a href="@{Musicas.form}">Enviar nova letra</a></li>
                             <li><a href="#">Favoritos</a></li>
                             <li><a href="@{Usuarios.logout}">Sair</a></li>
-                        </ul></li>
+                        </ul>
+                    </li>
                     #{/else}
                 </ul>
             </div>
@@ -73,10 +95,12 @@
 
     <span id="topo" style="position: absolute; top: 0;"></span>
 
-    <main id="conteudo" class="alinhar">
-        #{doLayout /}
+    <main id="conteudo">
+        <div class="alinhar">
+            #{doLayout /}
+        </div>
     </main>
-    
+
     #{get 'moreScripts' /}
 </body>
 

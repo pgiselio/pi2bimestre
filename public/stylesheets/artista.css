@@ -1,22 +1,20 @@
-#inicio {
+.header-artist-info {
+	display: flex;
+	align-items: center;
 	height: 100px;
-	display: block;
+	gap: 10px;
 	padding: 15px;
 	margin-bottom: 10px;
 }
 #titulos {
+	display: flex;
 	color: tomato;
 	position: relative;
-	top: 14px;
-	left: 10px;
 }
-#titulos h2{
-	float: left;
-}
-#img1 {
-	height: 100px;
-	float: left;
-	border-radius: 100%;
+.artist-profile-img {
+	height: 80px;
+	width: 80px;
+	border-radius: 50%;
 }
 #titulos span{
 	margin: 30px 10px;

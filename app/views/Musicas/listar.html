@@ -20,7 +20,7 @@
         <div class="music">
             <div class="titles">
                 <h3 class="card-title">${music.name}</h3>
-                <h6 class="card-subtitle mb-2 text-muted">artista</h6>
+                <h6 class="card-subtitle mb-2 text-muted">${music?.artist?.name}</h6>
             </div>
             <div class="actions">
                 <a href="@{Musicas.detalhar(music.id)}" class="btn">Detalhar</a>

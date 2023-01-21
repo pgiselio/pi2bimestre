@@ -3,23 +3,52 @@
   --tamanho-max: 1100px;
   --menu-background: #000;
   --card-color: #141414;
+  --topbar-height: 50px;
 }
 
 /*Generalizações*/
 
 * {
-  font-family: "Bree Serif", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-*, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: border-box;
 }
-
+#conteudo {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  max-width: 100vw;
+  width: 100%;
+  /* background-color: #0c0c0c;
+    border-left:1px solid #000;
+    border-right:1px solid #000; */
+}
 .alinhar {
+  display: flex;
+  flex-direction: column;
   max-width: var(--tamanho-max);
+  width: 100%;
   /*Define uma largura máxima */
-  margin: 0 auto;
   /*Aqui está que terá um margem de 80px em cime e em baixo e o auto vai cuidar de centralizar o conteúdo*/
   padding: 70px 20px;
+}
+
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+  color: #17bfae;
+}
+a:hover {
+  color: #1ff3de;
+  text-decoration: underline;
 }
 
 body,
@@ -35,6 +64,10 @@ body {
   line-height: 1.5;
 }
 
+.profile-picture {
+  border-radius: 50%;
+}
+
 .btn {
   display: flex;
   align-items: center;
@@ -46,14 +79,18 @@ body {
   cursor: pointer;
   color: #fff;
   font-size: 14px;
+  font-weight: 500;
   background: #00484b;
   text-decoration: none;
 }
 
 .btn:hover {
+  color: #fff;
   background: #00888d;
+  text-decoration: none;
 }
-input:not([id="txtBusca"], [type="submit"]), textarea {
+input:not([id="txtBusca"], [type="submit"]),
+textarea {
   padding: 10px 20px;
   background: #000;
   color: #fff;
@@ -68,14 +105,15 @@ input:not([id="txtBusca"], [type="submit"]), textarea {
 }
 .btn.btn-danger:hover {
   background-color: #d10000;
-
 }
 
-input:not([id="txtBusca"], [type="submit"], :focus):hover, textarea:hover {
+input:not([id="txtBusca"], [type="submit"], :focus):hover,
+textarea:hover {
   border-color: #ffffff4b;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: #00888d;
   outline: none;
 }
@@ -92,23 +130,16 @@ input:focus, textarea:focus {
 
 .form-subhint {
   margin-bottom: 3px;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 10px;
   color: #818181;
 }
 
-input ~ .form-subhint{
+input ~ .form-subhint {
   padding: 0 5px;
   margin-top: -20px;
   margin-bottom: 10px;
-}
-
-#conteudo {
-  min-height: 100vh;
-  /* background-color: #0c0c0c;
-    border-left:1px solid #000;
-    border-right:1px solid #000; */
 }
 
 /*Barra de Navegação*/
@@ -124,11 +155,11 @@ input ~ .form-subhint{
 #menuToggle {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 800;
+  display: flex;
+  width: 100%;
+  z-index: 1052;
   /*Altera a posição em relação ao eixo z(profundidade) de um elemento com position alterado ou flexionado, fazendo assim um elemento ficar sobreponto o outro*/
-  height: 50px;
+  height: var(--topbar-height);
   background: var(--menu-background);
   box-shadow: 0 2px 4px #00000036;
   -webkit-user-select: none;
@@ -138,6 +169,7 @@ input ~ .form-subhint{
 
 #group-nav {
   height: 100%;
+  width: 100%;
   background: var(--menu-background);
   max-width: var(--tamanho-max);
   margin: 0 auto;
@@ -165,10 +197,11 @@ input ~ .form-subhint{
 }
 
 #menu li a {
+  font-weight: 500;
   color: #cdcdcd;
   text-decoration: none;
-  display: block;
-  /*Define o comportamento de tela como bloco (como uma div é por padrão)*/
+  display: flex;
+  align-items: center;
   font-size: 14px;
   height: 100%;
   text-align: center;
@@ -178,15 +211,17 @@ input ~ .form-subhint{
   white-space: nowrap;
 }
 
-#menu li a::after {
+#menu li a::before {
   content: " ";
   display: block;
-  position: relative;
+  position: absolute;
   margin: auto;
+  left: 50%;
+  transform: translateX(-50%);
   /* background-color: #adadad; */
   background-color: #01aeb4;
   border-radius: 2px;
-  top: 2px;
+  bottom: 2px;
   width: 0;
   height: 4px;
   transition: 0.1s linear;
@@ -196,35 +231,46 @@ input ~ .form-subhint{
   color: #008492;
 }
 
-#menu li a:hover , #menu li:has(>ul):hover > a{
+#menu li a:hover,
+#menu li:has(> ul):hover > a {
   /* background-color: #ffffff1a;
     border-bottom: 2px solid #50dfff; */
   color: #01aeb4;
 }
 
-#menu li a:hover::after {
+#menu li a:hover::before {
   width: 20px;
 }
 
-#menu li a:active::after, #menu li:has(>ul):hover > a::after{
+#menu li a:active::before,
+#menu li:has(> ul):hover > a::before {
   width: 15px;
 }
 
-#menu li a.active::after, #menu li:has(>ul):hover > a::after{
+#menu li a.active::before,
+#menu li:has(> ul):hover > a::before {
   background-color: #008492;
   width: 4px;
 }
 
-#menu li a.active:hover::after {
+#menu li a.active:hover::before {
   background-color: #01aeb4;
   width: 20px;
 }
 
-#menu li a.active:active::after {
+#menu li a.active:active::before {
   width: 15px;
 }
 
-#menu li ul{
+#menu li:has(> ul) > a::after {
+  content: "\f078";
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  margin-left: 5px;
+  font-size: 10px;
+}
+
+#menu li ul {
   display: none;
   position: absolute;
   background-color: #222222;
@@ -235,10 +281,13 @@ input ~ .form-subhint{
   min-width: 100px;
   height: fit-content;
 }
-#menu li ul li{
+#menu li ul li {
   display: flex;
 }
-#menu li ul li a{
+#menu li ul li a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   padding: 5px 15px;
   text-align: start;
   width: 100%;
@@ -247,10 +296,10 @@ input ~ .form-subhint{
   color: #fff;
   background-color: #141414;
 }
-#menu li ul li a::after {
+#menu li ul li a::before {
   display: none;
 }
-#menu li:hover ul {
+#menu li:hover ul, #menu li:focus ul, #menu li > a:focus ~ ul {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -377,7 +426,6 @@ input ~ .form-subhint{
   color: #000;
 }
 
-
 /*Rodapé*/
 
 footer {
@@ -400,6 +448,7 @@ footer ul {
 }
 
 footer li a {
+  font-weight: 500;
   text-decoration: none;
   color: #999999;
   padding: 4px 0;
@@ -624,52 +673,60 @@ footer h4 {
 
 #podioArt {
   grid-template-columns: 1fr;
+  font-family: "Roboto", sans-serif;
 }
 
 #podioArt a {
+  display: flex;
   padding: 10px;
-  height: 50px;
-}
-
-#podioArt a::before {
-  margin-top: 4px;
+  align-items: center;
 }
 
 #podioArt b {
-  position: relative;
-  top: 10px;
-  left: 10px;
   font-size: 20px;
+  padding-left: 10px;
+  font-weight: 500;
 }
 
 /*Página de uma música*/
 
-#musicaContent * {
+
+.musica-header * {
   margin: 0;
   padding: 0;
+  font-family: "Roboto", sans-serif;
 }
 
-#musicaContent {
+.musica-header {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  gap: 10px;
   width: 100%;
   padding-bottom: 20px;
 }
-
-#musicaContent th {
-  width: 75px;
+.musica-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  gap: 4px;
 }
-
-#musicaContent td,
-#musicaContent th {
-  padding-right: 10px;
-}
-
-#musicaContent h1 {
+.musica-info h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: #d1d1d1;
-  float: left;
+  line-height: 35px;
 }
 
-#music-artist-img {
-  border-radius: 100%;
+.musica-info h3 {
+  line-height: 20px;
+}
+
+.music-artist-img {
+  border-radius: 50%;
+  width: 75px;
   height: 75px;
 }
 
@@ -684,61 +741,147 @@ footer h4 {
   color: #ff4726;
 }
 
-#musicaContent a.artist-link {
+.musica-header a.artist-link {
   text-decoration: none;
   color: #17bfae;
-  padding: 4px 0;
   display: inline-block;
 }
 
-#musicaContent a:hover {
+.musica-header a:hover {
   color: #1ff3de;
 }
+.musica-container-bloco2 {
+  display: flex;
+}
+.musica-panel-links{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  position: sticky;
+  top: calc(var(--topbar-height) + 15px);
+  background-color: #141414;
+  border: 1px solid #00000073;
+  padding: 2px;
+  margin: 0 15px;
+  border-radius: 15px;
+  z-index: 3;
+}
+.musica-panel-links li {
+  list-style: none;
+  position: relative;
+}
+.musica-panel-links li > *{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 5px;
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  transition: 0.2s linear;
+}
 
-#letraMusica {
+.musica-panel-links li > *::after{
+  content: attr(aria-title);
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  position: absolute;
+  display: none;
+  align-items: center;
+  font-size: 12px;
+  left: 110%;
+  background-color: #141414;
+  border: 1px solid #00000073;
+  width: fit-content;
+  padding: 10px;
+  height: 40px;
+  border-radius: 30px;
+  pointer-events: none;
+  white-space: nowrap;
+  color: #ccc;
+  animation: slide-right 0.2s linear;
+  z-index: 3;
+}
+
+.musica-panel-links li > *:hover {
+  background: #ffffff08;
+}
+.musica-panel-links li > *:hover::after {
+  display: flex;
+}
+.music-share-icon {
+  color: tomato;
+  cursor: pointer;
+}
+
+.letraMusica {
+  display: flex;
+  flex: 1;
+  position: relative;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   color: #a3a3a3;
   letter-spacing: 0.36px;
   /*Define o espaçamento entre as letras(sendo 0 o espaçamento padrão)*/
   line-height: 1.5;
-  padding: 5px;
-  border: 1px solid #000;
+  padding: 5px 45px;
+  /* border: 1px solid #000; */
   border-radius: 10px;
-  padding-left: 90px;
+  padding-left: 15px;
   background: var(--card-color);
 }
-#letraMusica * {
+.letraMusica pre {
+  padding-left: 20px;
+  word-spacing: pre-line;
+}
+.letraMusica * {
   font-family: Arial, Helvetica, sans-serif;
 }
-#letraMusica p {
+.letraMusica p {
   margin-bottom: 20px;
 }
 
+.music-extrainfo{
+  padding: 5px;
+  color: #a3a3a3;
+  text-align: end;
+}
+.music-extrainfo a {
+  color: #ccc;
+}
+.music-extrainfo b {
+  font-weight: 500;
+}
+
 /*Login e Cadastro*/
-.lbl1 * {
+.lbl * {
   text-align: left;
   font-family: Arial, Helvetica, sans-serif;
   color: #bbbbbb;
   font-size: 15px;
 }
 
-.lbl1 {
-  padding-left: 10px;
+.lbl {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.lbl1 h5 {
+.lbl h5,
+.lbl label {
+  width: fit-content;
   padding: 0;
   margin: 0;
   margin-bottom: 5px;
 }
 
-.lbl1 span:nth-child(n + 3) {
+/* .lbl span:nth-child(n + 3) {
   margin-left: 30px;
-}
+} */
 
-.lbl1 table {
+.lbl table {
   width: 100%;
 }
 
@@ -752,7 +895,7 @@ footer h4 {
 }
 .cmb1:focus {
   border: 2px solid #17bfae;
-}	
+}
 
 #loginContainer {
   width: 330px;
@@ -863,10 +1006,22 @@ footer h4 {
   align-items: center;
   justify-content: space-between;
 }
+
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 @media (max-width: 767px) {
   /* O que está dentro dessas chaves só se aplicam até a largura máxima da tela em 767px*/
   .alinhar {
     padding: 70px 10px;
+    max-width: 100vw;
   }
 
   #botao-ham {

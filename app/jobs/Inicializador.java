@@ -93,6 +93,12 @@ public class Inicializador extends Job {
 			artista.biography = "Biografia do artista";
 			artista.musics = Collections.<Musica>emptyList();
 			artista.save();
+
+			Artista artista2 = new Artista();
+			artista2.name = "Artista Teste 2";
+			artista2.biography = "Biografia do artista";
+			artista2.musics = Collections.<Musica>emptyList();
+			artista2.save();
 		}
 		System.out.println("O banco foi populado!");
 	}

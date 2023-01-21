@@ -2,7 +2,13 @@
 #{set title:'Meu perfil | IF Lyrics' /}
 #{stylesheet id:'music-list', src:'musiclist.css' /}
 
-<img src="" alt="Foto de perfil" width="70" height="70"/>
+#{if user.photo.exists()}
+    <img id="img1" src="@{downloadFoto(user.id)}" title="${user.name}" height="200" width="200">
+    #{/if}
+    #{else}
+    <img id="img1" src="@{'public/images/blank-profilepic.png'}" height="200" width="200">
+    #{/else}
+
 <h2>${user}</h2>
 
 <h3>Seus ultimos envios</h3>
@@ -12,7 +18,7 @@
         <div class="music">
             <div class="titles">
                 <h3 class="card-title">${music.name}</h3>
-                <h6 class="card-subtitle mb-2 text-muted">artista</h6>
+                <h6 class="card-subtitle mb-2 text-muted">${music.artist.name}</h6>
             </div>
             <div class="actions">
                 <a href="@{Musicas.detalhar(music.id)}" class="btn">Detalhar</a>

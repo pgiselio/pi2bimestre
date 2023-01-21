@@ -3,7 +3,6 @@
 
 <div id="loginContainer">
   
-  <h3>Cadastro</h3>
   <form
     class="access-form"
     id="cadastroform"
@@ -12,6 +11,7 @@
     onsubmit="return validarCadastro();"
     method="GET"
   >
+  <h3>Cadastro</h3>
   #{if flash.success}
   <div class="alert alert-success alert-dismissible fade show" role="alert">
     ${flash.success}
@@ -80,7 +80,7 @@
       onfocus="removeErrorClass(this);"
       onblur="validarCadastro(this);"
     />
-    <div class="lbl1">
+    <div class="lbl">
       <h5>Sexo*:</h5>
       <select
         name="newUser.genero"
@@ -95,7 +95,7 @@
         <option value="NAO_BINARIO">Não Binário</option>
       </select>
     </div>
-    <div class="lbl1">
+    <div class="lbl">
       <h5>Estado*:</h5>
       <select
         name="newUser.endereco.id"

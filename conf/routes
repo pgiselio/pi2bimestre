@@ -5,24 +5,40 @@
 # Home page
 GET     /                                       Application.index
 GET     /sobre                                  Application.sobre
-GET     /top-artistas                           Application.artistas
 
-GET     /a/{id}                                 Artistas.detalhar
+GET     /top-artistas                           Artistas.index
+GET     /artistas/list                          Artistas.getArtistas
+GET     /artistas/adicionar-artista             Artistas.criarNovoArtista
+GET     /artistas/downloadfoto                  Artistas.downloadFoto
+GET     /artista/salvar                         Artistas.salvar
+GET     /artista/delete                         Artistas.delete
+
+GET     /artista/{id}                           Artistas.detalhar
 
 GET     /auth/login                             Usuarios.loginForm
 GET     /auth/cadastro                          Usuarios.cadastroForm
 GET     /auth/confirmacao                       Usuarios.confirmacao
 GET     /auth/cadastrar                         Usuarios.cadastrar
-GET     /user/{id}                            Usuarios.perfil
-
+GET     /logout                                 Usuarios.logout
+GET     /user/{id}                              Usuarios.perfil
+GET     /user/{id}/contribuicoes                Usuarios.contribuicoes
 
 GET     /search                                 Musicas.findByName
 GET     /musicas                                Musicas.listar
-GET     /musicas/form                           Musicas.form
+GET     /musicas/enviar-letra                   Musicas.form
+GET     /musicas/save                           Musicas.save
+GET     /musica/delete                          Musicas.delete
+GET     /musicas/saveEditar                     Musicas.saveEditar
+
+GET     /musica/fav                             Musicas.favoritar
+
+
 GET     /musica/{id}                            Musicas.detalhar
 GET     /musica/{id}/editar                     Musicas.editar
 
 
+GET     /{a}/{m}                                Artistas.encontrarMusicaPorNomeArtista
+GET     /{artista}                              Artistas.detalharPeloNome
 
 
 
