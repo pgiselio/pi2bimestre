@@ -1,9 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Adicionar nova música | IF Lyrics' /}
 #{stylesheet id:'select2', src:'select2.css', title:'Select stylesheet' /}
-<script src="@{'/public/javascripts/select2.min.js'}"
-    integrity="sha512-9p/L4acAjbjIaaGXmZf0Q2bV42HetlCLbv8EP0z3rLbQED2TAFUlDvAezy7kumYqg5T8jHtDdlm1fgIsr5QzKg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="@{'/public/javascripts/select2.min.js'}"></script>
+
 <div class="header">
     #{if music.id}
     #{set title:'Editar "'+ music.name +'" | IF Lyrics' /}
@@ -14,7 +13,7 @@
     <h1>Adicionar nova música</h1>
     #{/else}
 </div>
-<form #{if music.id} action="@{Musicas.saveEditar}" #{/if} #{else} action="@{Musicas.save}"#{/else} method="post">
+<form #{if music.id} action="@{Musicas.saveEditar}" #{/if} #{else} action="@{Musicas.save}" #{/else} method="post">
     #{ifErrors}
     <span id="errorMessage" style="display: block;">
         #{list items:errors, as:'error'}
@@ -27,7 +26,7 @@
     <div class="form-group">
         <div class="lbl">
             <label for="music.artist.id">Artista / Banda:</label>
-            <select class="select2" id="music.artist.id" name="music.artist.id" style="width: 300px;">
+            <select class="select2-artist" id="music.artist.id" name="music.artist.id" style="width: 300px;">
                 <option value="${music?.artist?.id}">${music?.artist?.name}</option>
             </select>
             <span style="display: none;" id="newArtistMsg">**Criando novo artista</span>
@@ -55,16 +54,16 @@
     lyric.style.height = lyric.scrollHeight + "px";
     var updateUserRoute = #{ jsRoute @Artistas.getArtistas() /}
     var newArtistField = document.getElementById('newArtist');
+    let responseData;
     $(document).ready(function () {
 
-        $('.select2').select2(
+        $('.select2-artist').select2(
             {
                 placeholder: 'Selecione um artista',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
-
-                    if (term === '') {
+                    if (term === '' || responseData.length > 0) {
                         return null;
                     }
                     return {
@@ -76,8 +75,11 @@
                 ajax: {
                     url: updateUserRoute.url,
                     dataType: 'json',
+                    success: function (res) {
+                        responseData = res;
+                    },
                     data: function (params) {
-                        var query = {
+                        let query = {
                             term: params.term
                         }
                         // Query parameters will be ?search=[term]&type=public
@@ -96,8 +98,9 @@
                 }
             }
         );
-        $('.select2').on('select2:select', function (e) {
+        $('.select2-artist').on('select2:select', function (e) {
             let tag = e.params.data;
+            console.log(tag)
             if (tag.newTag === true) {
                 newArtistField.setAttribute('value', tag.text);
                 $('#newArtistMsg').show();

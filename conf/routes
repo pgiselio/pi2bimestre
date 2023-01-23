@@ -10,8 +10,10 @@ GET     /top-artistas                           Artistas.index
 GET     /artistas/list                          Artistas.getArtistas
 GET     /artistas/adicionar-artista             Artistas.criarNovoArtista
 GET     /artistas/downloadfoto                  Artistas.downloadFoto
-GET     /artista/salvar                         Artistas.salvar
-GET     /artista/delete                         Artistas.delete
+GET     /artistas/enviarfoto                    Artistas.enviarFotoForm
+POST    /artistas/enviarfoto/salvar             Artistas.enviarFoto
+GET     /artistas/salvar                        Artistas.salvar
+GET     /artistas/delete                        Artistas.delete
 
 GET     /artista/{id}                           Artistas.detalhar
 
@@ -20,8 +22,11 @@ GET     /auth/cadastro                          Usuarios.cadastroForm
 GET     /auth/confirmacao                       Usuarios.confirmacao
 GET     /auth/cadastrar                         Usuarios.cadastrar
 GET     /logout                                 Usuarios.logout
+
+
 GET     /user/{id}                              Usuarios.perfil
 GET     /user/{id}/contribuicoes                Usuarios.contribuicoes
+GET     /user/{id}/foto                         Usuarios.downloadFoto
 
 GET     /search                                 Musicas.findByName
 GET     /musicas                                Musicas.listar
@@ -30,7 +35,7 @@ GET     /musicas/save                           Musicas.save
 GET     /musica/delete                          Musicas.delete
 GET     /musicas/saveEditar                     Musicas.saveEditar
 
-GET     /musica/fav                             Musicas.favoritar
+GET     /musica/fav                             Musicas.alternarFavorito
 
 
 GET     /musica/{id}                            Musicas.detalhar

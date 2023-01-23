@@ -3,9 +3,13 @@ package controllers;
 import play.*;
 import play.data.validation.Valid;
 import play.mvc.*;
+import play.mvc.results.RenderJson;
 import security.Seguranca;
 
 import java.util.*;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import models.*;
 import models.artista.Artista;
@@ -36,24 +40,6 @@ public class Musicas extends Controller {
             musica.save();
         }
         render(musica, isFavorite);
-    }
-
-    public static void detalharPorArtista(String artista, String musica) {
-        final String artistaUpperCase = artista.toUpperCase();
-        Artista artist = Artista.find("upper(name) = ?1", artistaUpperCase).first();
-        final String nameUpperCase = musica.toUpperCase();
-        Musica music = Musica
-                .find("SELECT m FROM Musica m WHERE isDeleted = ?1 " +
-                        "AND upper(name) like ?2 AND artist = ?3 ORDER BY m.views DESC",
-                        false, nameUpperCase, artist)
-                .first();
-        if (music != null) {
-            music.views++;
-            music.save();
-        } else {
-            notFound("Música não encontrada!");
-        }
-        renderTemplate("Musicas/detalhar.html", musica, artist);
     }
 
     public static void findByName(String name) {
@@ -111,10 +97,12 @@ public class Musicas extends Controller {
         music.save();
         listar();
     }
-
-    public static void favoritar(Long id) {
+    public static void alternarFavorito(Long id) {
         Usuario usuario = Usuario.find("email = ?1", session.get("userSession")).first();
         Musica musica = Musica.findById(id);
+        if(musica == null) {
+            notFound("Música não encontrada!");
+        }
         Boolean isFavorite = usuario.musicasFavoritas.contains(musica);
         if (isFavorite) {
             usuario.musicasFavoritas.remove(musica);
@@ -122,7 +110,9 @@ public class Musicas extends Controller {
             usuario.musicasFavoritas.add(musica);
         }
         usuario.save();
-        detalhar(id);
+        JsonObject json = new JsonObject();
+        json.addProperty("isFavorite", !isFavorite);
+        renderJSON(json);
     }
 
     public static void saveEditar(@Valid Musica music) {

@@ -14,7 +14,7 @@ import models.musica.Musica;
 public class Artistas extends Controller {
     public static void index() {
         List<Artista> artists = Artista.findAll();
-        artists.sort(Comparator.comparing(Artista::getViews));
+        artists.sort(Comparator.comparing(Artista::getViews).reversed());
         if (artists.size() > 100) {
             artists = artists.subList(0, 100);
         }
@@ -30,7 +30,7 @@ public class Artistas extends Controller {
         Artista artist = Artista.findById(id);
         if (artist == null)
             forbidden("Artista não encontrado!");
-        List<Musica> musics = Musica.find("artist = ?1", artist).fetch();
+        List<Musica> musics = Musica.find("artist = ?1 ORDER BY name", artist).fetch();
         detalharPeloNome(artist.urlString);
         render(artist, musics);
     }
@@ -42,18 +42,21 @@ public class Artistas extends Controller {
         Artista artist = Artista.find("replace(lower(urlString), ' ', '-') = ?1", artistaLowerCase).first();
         if (artist == null)
             notFound("Artista não encontrado!");
-        List<Musica> musics = Musica.find("artist = ?1", artist).fetch();
+        List<Musica> musics = Musica.find("artist = ?1 ORDER BY name", artist).fetch();
         renderTemplate("Artistas/detalhar.html", artist, musics);
     }
 
     public static void encontrarMusicaPorNomeArtista(String a, String m) {
-        final String artistaLowerCase = a.toLowerCase().replace(" ", "-");
+        String artistaLowerCase = a.toLowerCase().replace(" ", "-");
+
         Artista artist = Artista.find("replace(lower(urlString), ' ', '-') like ?1", artistaLowerCase + "%").first();
         if (artist == null)
             notFound("Artista não encontrado!");
-        final String nameLowerCase = m.toLowerCase().replace(" ", "-");
+
+        String nameLowerCase = m.toLowerCase().replace(" ", "-");
         if (!a.equals(artistaLowerCase) || !m.equals(nameLowerCase))
             encontrarMusicaPorNomeArtista(artistaLowerCase, nameLowerCase);
+
         Musica musica = Musica
                 .find("isDeleted = ?1 AND replace(lower(name), ' ', '-') like ?2 AND artist = ?3",
                         false, nameLowerCase, artist)
@@ -65,18 +68,15 @@ public class Artistas extends Controller {
     public static void criarNovoArtista() {
         render();
     }
+
     public static void getArtistas(String term, Long id) {
         List<Artista> artists;
         if (term == null || term.isEmpty()) {
-            artists = Artista.findAll();
+            artists = Artista.find("order by name").fetch();
+
         } else {
-            try{
-                Long parsedTerm = Long.parseLong(term);
-                artists = Artista.find("id = ?1", parsedTerm).fetch();
-            }catch(NumberFormatException e){
-                String termLowerCase = term.toLowerCase();
-                artists = Artista.find("lower(name) like ?1", "%" + termLowerCase + "%").fetch();
-            }
+            String termLowerCase = term.toLowerCase();
+            artists = Artista.find("lower(name) like ?1", "%" + termLowerCase + "%").fetch();
         }
         artists.forEach(artista -> {
             artista.biography = null;
@@ -86,10 +86,18 @@ public class Artistas extends Controller {
         });
         renderJSON(artists);
     }
-
+    public static void enviarFotoForm() {
+        render();
+    }
+    public static void enviarFoto(Artista a){
+        Artista artista = Artista.findById(a.id);
+        a.photo = a.photo;
+        artista.save();
+        enviarFotoForm();
+    }
     public static void downloadFoto(Long id) {
-		Artista artista = Artista.findById(id);
-		renderBinary(artista.photo.getFile());
-	}
+        Artista artista = Artista.findById(id);
+        renderBinary(artista.photo.getFile());
+    }
 
 }

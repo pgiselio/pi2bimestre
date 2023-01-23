@@ -81,9 +81,22 @@ public class Usuarios extends Controller {
         renderTemplate("Usuarios/perfil.html", user, musics);
     }
 
+    public static void favoritos(Long id) {
+        Usuario user = Usuario.findById(id);
+        List<Musica> musics = user.musicasFavoritas;
+        renderTemplate("Usuarios/perfil.html", user, musics);
+    }
+
+    public static void enviarFoto(Usuario u){
+        Usuario user = Usuario.find("byEmail", session.get("userSession")).first();
+        user.photo = u.photo;
+        user.save();
+        Artistas.enviarFotoForm();
+    }
+
     public static void downloadFoto(Long id) {
-        Artista artista = Artista.findById(id);
-        renderBinary(artista.photo.getFile());
+        Usuario usuario = Usuario.findById(id);
+        renderBinary(usuario.photo.getFile());
     }
 
     public static void logout() {

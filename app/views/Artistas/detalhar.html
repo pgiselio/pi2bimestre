@@ -1,5 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Artista | IF Lyrics' /}
+#{stylesheet id:'music-list', src:'musiclist.css' /}
 #{stylesheet id:'artist', src:'artista.css' /}
 
 <div class="header-artist-info">
@@ -39,12 +40,24 @@
 #{/else}
 
 <h1>Músicas</h1>
-<ul>
+<section class="box">
+<div class="music-list">
     #{list items:musics, as:'music'}
-    <li>${music.name}</li>
+    <div class="music">
+        <a href="@{Musicas.detalhar(music.id)}" class="titles">
+            <h3 class="card-title">${music.name}</h3>
+        </a>
+        <div class="actions">
+            <a href="@{Musicas.editar(music.id)}" class="btn"><i class="fas fa-pencil"></i></a>
+            <a href="@{Musicas.delete(music.id)}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
     #{/list}
-</ul>
-
+    #{else}
+    <h3>Nada encontrado</h3>
+    #{/else}
+</div>
+</section>
 
 <script>
 

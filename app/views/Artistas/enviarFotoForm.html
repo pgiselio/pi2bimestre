@@ -1,0 +1,55 @@
+#{extends 'main.html' /}
+#{set title:'Enviar foto de artista | IF Lyrics' /}
+#{stylesheet id:'select2', src:'select2.css', title:'Select stylesheet' /}
+<script src="@{'/public/javascripts/select2.min.js'}"></script>
+
+<form action="@{Artistas.enviarFoto}" method="post" enctype="multipart/form-data">
+<div class="lbl">
+    <label for="music.artist.id">Artista / Banda:</label>
+    <select class="select2-artist" id="a.id" name="a.id" style="width: 300px;">
+        <option value="${artist?.id}">${artist?.name}</option>
+    </select>
+    <span style="display: none;" id="newArtistMsg">**Criando novo artista</span>
+</div>
+<input type="file" name="a.photo" type="file" accept="image/png, image/gif, image/jpeg, image/webp">
+<input type="submit" name="submit" value="Upload">
+</form>
+
+<script>
+    var updateUserRoute = #{ jsRoute @Artistas.getArtistas() /}
+    var newArtistField = document.getElementById('newArtist');
+    let responseData;
+    $(document).ready(function () {
+
+        $('.select2-artist').select2(
+            {
+                placeholder: 'Selecione um artista',
+                tags: false,
+                ajax: {
+                    url: updateUserRoute.url,
+                    dataType: 'json',
+                    success: function (res) {
+                        responseData = res;
+                    },
+                    data: function (params) {
+                        let query = {
+                            term: params.term
+                        }
+                        // Query parameters will be ?search=[term]&type=public
+                        return query;
+                    },
+                    processResults: function (data) {
+                        // Transforms the top-level key of the response object from 'items' to 'results'
+                        data.forEach(item => {
+                            item["text"] = item["name"];
+                            delete item["name"];
+                        });
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            }
+        );
+    });
+</script>

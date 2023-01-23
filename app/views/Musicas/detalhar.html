@@ -1,11 +1,18 @@
 #{extends 'main.html' /}
 #{set title: musica?.name ? musica?.name + ' - ' + musica.artist.name + ' | IF Lyrics': 'Música não encontrada' + ' | IF
 Lyrics' /}
+#{stylesheet id:'musica-page', src:'musica.css'/}
+
 
 #{if musica}
 
 <div class="musica-header">
-    <img src="/public/images/blank-profilepic.png" title="Artista" class="music-artist-img">
+    #{if musica.artist.photo.exists()}
+    <img class="music-artist-img" src="@{Artistas.downloadFoto(musica.artist.id)}" title="${musica.artist.name}">
+    #{/if}
+    #{else}
+    <img class="music-artist-img" src="@{'public/images/blank-profilepic.png'}" title="${musica.artist.name}">
+    #{/else}
     <div class="musica-info">
         <h1>
             ${musica.name}
@@ -22,18 +29,20 @@ Lyrics' /}
 
 <div class="musica-container-bloco2">
     <div class="musica-panel-links">
+        #{if session.get("userSession") != null}
         <li>
             #{if isFavorite == true}
-            <a href="@{Musicas.favoritar(musica.id)}" class="fav-button favorited" aria-title="Remover dos favoritos"><i
+            <a href="javascript:void(0)" id="favorite-button" class="fav-button favorited" aria-title="Remover dos favoritos"><i
                     class="fas fa-heart"></i>
             </a>
             #{/if}
             #{elseif isFavorite == false}
-            <a href="@{Musicas.favoritar(musica.id)}" class="fav-button" aria-title="Adicionar aos favoritos"><i
+            <a href="javascript:void(0)" id="favorite-button" class="fav-button" aria-title="Adicionar aos favoritos"><i
                     class="far fa-heart"></i>
             </a>
             #{/elseif}
         </li>
+        #{/if}
         <li>
             <i class="fas fa-share-nodes music-share-icon" aria-title="Compartilhar" onclick="navigator.share({
 title: '${musica.name} - ${musica.artist.name}',
@@ -72,3 +81,29 @@ ${musica.lyric}
 #{else}
 <h3>Música não encontrada</h3>
 #{/else}
+
+<script>
+    var alternarFavoritoRoute = #{ jsRoute @Musicas.alternarFavorito(':id') /}; 
+
+    $(document).ready(function () {        
+        $("#favorite-button").click(function () {
+            $.ajax({
+                url: alternarFavoritoRoute.url({id: ${ musica.id }}),
+                type: alternarFavoritoRoute.method,
+                success: function (data) {
+                    if (data.isFavorite) {
+                        $("#favorite-button").addClass("favorited");
+                        $("#favorite-button").attr("aria-title", "Remover dos favoritos");
+                        $("#favorite-button i").addClass("fas");
+                        $("#favorite-button i").removeClass("far");
+                    } else {
+                        $("#favorite-button").removeClass("favorited");
+                        $("#favorite-button").attr("aria-title", "Adicionar aos favoritos");
+                        $("#favorite-button i").removeClass("fas");
+                        $("#favorite-button i").addClass("far");                        
+                    }
+                }
+            })
+        })
+    });
+</script>

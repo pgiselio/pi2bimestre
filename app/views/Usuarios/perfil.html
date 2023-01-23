@@ -3,10 +3,10 @@
 #{stylesheet id:'music-list', src:'musiclist.css' /}
 
 #{if user.photo.exists()}
-    <img id="img1" src="@{downloadFoto(user.id)}" title="${user.name}" height="200" width="200">
+    <img id="img1" class="profile-picture" src="@{downloadFoto(user.id)}" title="Foto de ${user}" height="200" width="200">
     #{/if}
     #{else}
-    <img id="img1" src="@{'public/images/blank-profilepic.png'}" height="200" width="200">
+    <img id="img1" class="profile-picture" src="@{'public/images/blank-profilepic.png'}" height="200" width="200">
     #{/else}
 
 <h2>${user}</h2>

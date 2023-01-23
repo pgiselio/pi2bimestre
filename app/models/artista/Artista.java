@@ -38,11 +38,15 @@ public class Artista extends GenericModel{
     @Embedded
     public RedeSocial socialNetwork;
 
-    @OneToMany
+    @OneToMany(mappedBy="artist")
     public List<Musica> musics;
 
     public long getViews() {
-        return Musica.count("artist = ?1", this);
+        long views = 0;
+        for (Musica musica : musics) {
+            views += musica.views;
+        }
+        return views;
     }
 
     @Override

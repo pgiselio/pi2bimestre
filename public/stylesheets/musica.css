@@ -1,0 +1,165 @@
+/*Página de uma música*/
+
+.musica-header * {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.musica-header {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 20px;
+}
+.musica-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  gap: 4px;
+}
+.musica-info h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d1d1d1;
+  line-height: 35px;
+}
+
+.musica-info h3 {
+  line-height: 20px;
+}
+
+.music-artist-img {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+
+.music-links img {
+  height: 20px;
+}
+.fav-button {
+  color: #ccc;
+  font-size: 18px;
+}
+.fav-button.favorited {
+  color: #ff4726;
+}
+
+.musica-header a.artist-link {
+  text-decoration: none;
+  color: #17bfae;
+  display: inline-block;
+}
+
+.musica-header a:hover {
+  color: #1ff3de;
+}
+.musica-container-bloco2 {
+  display: flex;
+}
+.musica-panel-links {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  position: sticky;
+  top: calc(var(--topbar-height) + 15px);
+  background-color: #141414;
+  border: 1px solid #00000073;
+  padding: 2px;
+  margin: 0 15px;
+  border-radius: 15px;
+  z-index: 3;
+}
+.musica-panel-links li {
+  list-style: none;
+  position: relative;
+}
+.musica-panel-links li > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 5px;
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  transition: 0.2s linear;
+}
+
+.musica-panel-links li > *::after {
+  content: attr(aria-title);
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  position: absolute;
+  display: none;
+  align-items: center;
+  font-size: 12px;
+  left: 110%;
+  background-color: #141414;
+  border: 1px solid #00000073;
+  width: fit-content;
+  padding: 10px;
+  height: 40px;
+  border-radius: 30px;
+  pointer-events: none;
+  white-space: nowrap;
+  color: #ccc;
+  animation: slide-right 0.2s linear;
+  z-index: 3;
+}
+
+.musica-panel-links li > *:hover {
+  background: #ffffff08;
+}
+.musica-panel-links li > *:hover::after {
+  display: flex;
+}
+.music-share-icon {
+  color: tomato;
+  cursor: pointer;
+}
+
+.letraMusica {
+  display: flex;
+  flex: 1;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: #a3a3a3;
+  letter-spacing: 0.36px;
+  /*Define o espaçamento entre as letras(sendo 0 o espaçamento padrão)*/
+  line-height: 1.5;
+  padding: 5px 45px;
+  /* border: 1px solid #000; */
+  border-radius: 10px;
+  padding-left: 15px;
+  background: var(--card-color);
+}
+.letraMusica pre {
+  padding-left: 20px;
+  word-spacing: pre-line;
+}
+.letraMusica * {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.letraMusica p {
+  margin-bottom: 20px;
+}
+
+.music-extrainfo {
+  padding: 5px;
+  color: #a3a3a3;
+  text-align: end;
+}
+.music-extrainfo a {
+  color: #ccc;
+}
+.music-extrainfo b {
+  font-weight: 500;
+}

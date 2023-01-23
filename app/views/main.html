@@ -70,8 +70,8 @@
                         <ul>
                             <li><a href="@{Usuarios.perfil(usuarioLogado?.id)}">
                                     #{if usuarioLogado?.photo?.exists()}
-                                    <img class="profile-picture" src="@{downloadFoto(usuarioLogado?.id)}"
-                                        title="${usuarioLogado.name}" height="30" width="30">
+                                    <img class="profile-picture" src="@{Usuarios.downloadFoto(usuarioLogado?.id)}"
+                                        title="${usuarioLogado}" height="30" width="30">
                                     #{/if}
                                     #{else}
                                     <img class="profile-picture" src="@{'public/images/blank-profilepic.png'}"

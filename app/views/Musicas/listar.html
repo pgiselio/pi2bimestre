@@ -20,7 +20,8 @@
         <div class="music">
             <div class="titles">
                 <h3 class="card-title">${music.name}</h3>
-                <h6 class="card-subtitle mb-2 text-muted">${music?.artist?.name}</h6>
+                <a class="card-subtitle mb-2 text-muted" href="@{Artistas.detalharPeloNome(music.artist.urlString)}"
+                class="artist-link">${music?.artist?.name}</a>
             </div>
             <div class="actions">
                 <a href="@{Musicas.detalhar(music.id)}" class="btn">Detalhar</a>
