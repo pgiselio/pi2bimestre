@@ -32,8 +32,8 @@ Lyrics' /}
         #{if session.get("userSession") != null}
         <li>
             #{if isFavorite == true}
-            <a href="javascript:void(0)" id="favorite-button" class="fav-button favorited" aria-title="Remover dos favoritos"><i
-                    class="fas fa-heart"></i>
+            <a href="javascript:void(0)" id="favorite-button" class="fav-button favorited"
+                aria-title="Remover dos favoritos"><i class="fas fa-heart"></i>
             </a>
             #{/if}
             #{elseif isFavorite == false}
@@ -77,33 +77,34 @@ ${musica.lyric}
     - Viu algum erro? <a href="@{Musicas.editar(musica.id)}" class="edit-button"> Faça uma alteração.</a>
     #{/if}
 </div>
-#{/if}
-#{else}
-<h3>Música não encontrada</h3>
-#{/else}
 
 <script>
     var alternarFavoritoRoute = #{ jsRoute @Musicas.alternarFavorito(':id') /}; 
 
-    $(document).ready(function () {        
+
+    $(document).ready(function () {
         $("#favorite-button").click(function () {
             $.ajax({
-                url: alternarFavoritoRoute.url({id: ${ musica.id }}),
+                url: alternarFavoritoRoute.url({ id: ${ musica.id }}),
                 type: alternarFavoritoRoute.method,
-                success: function (data) {
-                    if (data.isFavorite) {
-                        $("#favorite-button").addClass("favorited");
-                        $("#favorite-button").attr("aria-title", "Remover dos favoritos");
-                        $("#favorite-button i").addClass("fas");
-                        $("#favorite-button i").removeClass("far");
-                    } else {
-                        $("#favorite-button").removeClass("favorited");
-                        $("#favorite-button").attr("aria-title", "Adicionar aos favoritos");
-                        $("#favorite-button i").removeClass("fas");
-                        $("#favorite-button i").addClass("far");                        
+                    success: function (data) {
+                        if (data.isFavorite) {
+                            $("#favorite-button").addClass("favorited");
+                            $("#favorite-button").attr("aria-title", "Remover dos favoritos");
+                            $("#favorite-button i").addClass("fas");
+                            $("#favorite-button i").removeClass("far");
+                        } else {
+                            $("#favorite-button").removeClass("favorited");
+                            $("#favorite-button").attr("aria-title", "Adicionar aos favoritos");
+                            $("#favorite-button i").removeClass("fas");
+                            $("#favorite-button i").addClass("far");
+                        }
                     }
-                }
-            })
         })
+    })
     });
 </script>
+#{/if}
+#{else}
+<h3>Música não encontrada</h3>
+#{/else}

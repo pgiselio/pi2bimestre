@@ -9,6 +9,7 @@ import java.util.*;
 import models.*;
 import models.artista.Artista;
 import models.musica.Musica;
+import models.usuario.Usuario;
 
 @With(GetUserLoggedIn.class)
 public class Artistas extends Controller {
@@ -37,11 +38,12 @@ public class Artistas extends Controller {
 
     public static void detalharPeloNome(String artista) {
         final String artistaLowerCase = artista.toLowerCase().replace(" ", "-");
-        if (!artista.equals(artistaLowerCase))
-            detalharPeloNome(artistaLowerCase);
-        Artista artist = Artista.find("replace(lower(urlString), ' ', '-') = ?1", artistaLowerCase).first();
+        Artista artist = Artista.find("replace(lower(urlString), ' ', '-') like ?1", "%" + artistaLowerCase + "%")
+                .first();
         if (artist == null)
             notFound("Artista não encontrado!");
+        if (!artist.urlString.equals(artista) || !artist.urlString.equals(artistaLowerCase))
+            detalharPeloNome(artist.urlString);
         List<Musica> musics = Musica.find("artist = ?1 ORDER BY name", artist).fetch();
         renderTemplate("Artistas/detalhar.html", artist, musics);
     }
@@ -54,15 +56,25 @@ public class Artistas extends Controller {
             notFound("Artista não encontrado!");
 
         String nameLowerCase = m.toLowerCase().replace(" ", "-");
-        if (!a.equals(artistaLowerCase) || !m.equals(nameLowerCase))
-            encontrarMusicaPorNomeArtista(artistaLowerCase, nameLowerCase);
+        if (!a.equals(artist.urlString) || !m.equals(nameLowerCase))
+            encontrarMusicaPorNomeArtista(artist.urlString, nameLowerCase);
 
         Musica musica = Musica
                 .find("isDeleted = ?1 AND replace(lower(name), ' ', '-') like ?2 AND artist = ?3",
-                        false, nameLowerCase, artist)
+                        false, "%" + nameLowerCase + "%", artist)
                 .first();
+                
+        if (musica != null) {
+            musica.addView();
+        }
 
-        renderTemplate("Musicas/detalhar.html", musica);
+        Boolean isFavorite = null;
+        if (session.get("userSession") != null) {
+            Usuario user = Usuario.find("email = ?1", session.get("userSession")).first();
+            isFavorite = user.musicasFavoritas.contains(musica);
+        }
+
+        renderTemplate("Musicas/detalhar.html", musica, isFavorite);
     }
 
     public static void criarNovoArtista() {
@@ -86,15 +98,18 @@ public class Artistas extends Controller {
         });
         renderJSON(artists);
     }
+
     public static void enviarFotoForm() {
         render();
     }
-    public static void enviarFoto(Artista a){
+
+    public static void enviarFoto(Artista a) {
         Artista artista = Artista.findById(a.id);
         a.photo = a.photo;
         artista.save();
         enviarFotoForm();
     }
+
     public static void downloadFoto(Long id) {
         Artista artista = Artista.findById(id);
         renderBinary(artista.photo.getFile());

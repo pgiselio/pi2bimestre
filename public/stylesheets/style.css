@@ -439,10 +439,8 @@ footer ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  padding-left: 20px;
   position: relative;
   min-width: 200px;
-  margin-right: 5px;
   float: left;
   z-index: 2;
 }
@@ -476,6 +474,8 @@ footer h4 {
 
 #rodape {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   padding-top: 30px;
   padding-bottom: 60px;
   max-width: var(--tamanho-max);
@@ -1010,12 +1010,31 @@ footer h4 {
     border-radius: 8px;
     margin: 0 auto;
   }
+  #menu li:has(> ul) > a::after {
+    content: "";
+  }
 
-  #menu li a:hover {
+  #menu li:has(> ul) > a:hover, #menu li:has(> ul) > a {
     background-color: #ffffff1a;
     color: #fff;
   }
-
+  #menu li ul{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  #menu li:has(> ul) > a{
+    border-radius: 5px 5px 0 0;
+  }
+  #menu li:has(> ul):focus > a{
+    border-radius: 5px 5px 0 0;
+  }
+  #menu li ul{
+    right: initial;
+    position: relative;
+    margin: 0 8px;
+    margin-bottom: 20px;
+  }
   #group-nav {
     background: transparent;
     transition: all 0.2s linear;
@@ -1087,6 +1106,12 @@ footer h4 {
     padding: 10px 30px;
   }
 
+  #rodape {
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
+  }
+
   #fdescText {
     font-size: 14px;
   }
@@ -1094,6 +1119,7 @@ footer h4 {
   /*Página inicial*/
   .podio {
     grid-template-columns: 1fr;
+    column-count: 1;
   }
 
   /*Música*/

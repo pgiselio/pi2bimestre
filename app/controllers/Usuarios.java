@@ -12,6 +12,7 @@ import models.*;
 import models.artista.Artista;
 import models.localizacao.Endereco;
 import models.musica.Musica;
+import models.usuario.Papel;
 import models.usuario.Usuario;
 
 @With(GetUserLoggedIn.class)
@@ -59,6 +60,7 @@ public class Usuarios extends Controller {
                 newUser.email).first();
         if (user == null) {
             newUser.criptografarSenha();
+            newUser.papel = Papel.USUARIO;
             newUser.save();
             flash.success("Cadastro realizado com sucesso");
             cadastroForm();
@@ -92,6 +94,11 @@ public class Usuarios extends Controller {
         user.photo = u.photo;
         user.save();
         Artistas.enviarFotoForm();
+    }
+
+    public static void listar() {
+        List<Usuario> usuarios = Usuario.findAll();
+        render(usuarios);
     }
 
     public static void downloadFoto(Long id) {

@@ -1,6 +1,7 @@
 package jobs;
 
 import java.util.Collections;
+import java.util.Date;
 
 import org.apache.commons.codec.digest.Crypt;
 
@@ -77,7 +78,7 @@ public class Inicializador extends Job {
 		if (Usuario.count() == 0) {
 			Usuario admin = new Usuario();
 			Endereco endereco = Endereco.find("uf = ?1", "RN").first();
-			admin.email = "admin";
+			admin.email = "admin@gmail.com";
 			admin.password = "admin";
 			admin.firstName = "Admin";
 			admin.lastName = "da Silva";
@@ -99,6 +100,14 @@ public class Inicializador extends Job {
 			artista2.biography = "Biografia do artista";
 			artista2.musics = Collections.<Musica>emptyList();
 			artista2.save();
+
+			Musica musica = new Musica();
+			musica.name = "Musica Teste";
+			musica.artist = artista;
+			musica.lyric = "Letra da musica";
+			musica.sendedBy = Usuario.find("email = ?1", "admin@gmail.com").first();
+			musica.additionDate = new Date();
+			musica.save();
 		}
 		System.out.println("O banco foi populado!");
 	}

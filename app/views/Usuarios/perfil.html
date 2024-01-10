@@ -21,7 +21,7 @@
                 <h6 class="card-subtitle mb-2 text-muted">${music.artist.name}</h6>
             </div>
             <div class="actions">
-                <a href="@{Musicas.detalhar(music.id)}" class="btn">Detalhar</a>
+                <a href="@{Artistas.encontrarMusicaPorNomeArtista(music.artist.urlString, music.name)}" class="btn">Detalhar</a>
                 <a href="@{Musicas.editar(music.id)}" class="btn"><i class="fas fa-pencil"></i></a>
                 <a href="@{Musicas.delete(music.id)}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
             </div>

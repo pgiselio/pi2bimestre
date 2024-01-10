@@ -5,6 +5,7 @@
 <head>
     <title>#{get 'title' /}</title>
     <meta charset="utf-8">
+    <meta meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="@{'/public/stylesheets/style.css'}">
     <link rel="stylesheet" href="@{'/public/stylesheets/fonts.css'}">
@@ -43,7 +44,7 @@
                             <div class="search-input">
                                 <input type="search" name="name" id="txtBusca" onblur="ocultarSearch();"
                                     onfocus="expandirSearch();" autocomplete="off" placeholder="Pesquisar... " #{if
-                                    request.action=="Musicas.findByName" }value="${request.params.get(" name")}"
+                                    request.action=="Musicas.findByName" }value="${request.params.get("name")}"
                                     #{/if} />
                                 <i id="search-icon" class="fas fa-search"></i>
                             </div>
@@ -65,7 +66,7 @@
                             request.action=="Usuarios.cadastroForm" }class="active" #{/if}>Entrar</a></li>
                     #{/if}
                     #{else}
-                    <li><a href="@{Usuarios.perfil(usuarioLogado?.id)}" #{if request.action=="Usuarios.perfil"
+                    <li><a href="#" #{if request.action=="Usuarios.perfil"
                             }class="active" #{/if}>Perfil</a>
                         <ul>
                             <li><a href="@{Usuarios.perfil(usuarioLogado?.id)}">
@@ -81,7 +82,7 @@
                                         ${usuarioLogado}</span></a></li>
                             <li><a href="@{Usuarios.contribuicoes(usuarioLogado?.id)}">Suas contribuições</a></li>
                             <li><a href="@{Musicas.form}">Enviar nova letra</a></li>
-                            <li><a href="#">Favoritos</a></li>
+                            <li><a href="@{Usuarios.favoritos(usuarioLogado?.id)}">Favoritos</a></li>
                             <li><a href="@{Usuarios.logout}">Sair</a></li>
                         </ul>
                     </li>

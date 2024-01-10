@@ -39,12 +39,12 @@
 </div>
 #{/else}
 
-<h1>Músicas</h1>
+<h3>Músicas</h3>
 <section class="box">
 <div class="music-list">
     #{list items:musics, as:'music'}
     <div class="music">
-        <a href="@{Musicas.detalhar(music.id)}" class="titles">
+        <a href="@{Artistas.encontrarMusicaPorNomeArtista(music.artist.urlString, music.name)}" class="titles">
             <h3 class="card-title">${music.name}</h3>
         </a>
         <div class="actions">

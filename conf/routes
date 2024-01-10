@@ -27,12 +27,14 @@ GET     /logout                                 Usuarios.logout
 GET     /user/{id}                              Usuarios.perfil
 GET     /user/{id}/contribuicoes                Usuarios.contribuicoes
 GET     /user/{id}/foto                         Usuarios.downloadFoto
+GET     /user/{id}/favoritos                    Usuarios.favoritos
+
 
 GET     /search                                 Musicas.findByName
 GET     /musicas                                Musicas.listar
 GET     /musicas/enviar-letra                   Musicas.form
 GET     /musicas/save                           Musicas.save
-GET     /musica/delete                          Musicas.delete
+GET     /musicas/delete                          Musicas.delete
 GET     /musicas/saveEditar                     Musicas.saveEditar
 
 GET     /musica/fav                             Musicas.alternarFavorito

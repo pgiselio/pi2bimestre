@@ -6,7 +6,7 @@
     <ol class="podio">
       #{list items:Top10, as:'music'}
       <li>
-        <a href="@{Musicas.detalhar(music.id)}">
+        <a href="@{Artistas.encontrarMusicaPorNomeArtista(music.artist.urlString, music.name)}">
           <b>${music.name}</b>
           <span>${music.artist.name} - ${music.views} views</span>
         </a>

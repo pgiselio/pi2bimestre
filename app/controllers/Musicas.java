@@ -36,8 +36,7 @@ public class Musicas extends Controller {
         }
         Musica musica = Musica.findById(id);
         if (musica != null) {
-            musica.views++;
-            musica.save();
+            musica.addView();
         }
         render(musica, isFavorite);
     }

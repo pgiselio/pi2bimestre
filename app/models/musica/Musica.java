@@ -52,4 +52,9 @@ public class Musica extends GenericModel{
     public long getFavoriteNumber() {
         return Usuario.count("musicasFavoritas = ?1", this);
     }
+
+    public void addView() {
+        views++;
+        save();
+    }
 }

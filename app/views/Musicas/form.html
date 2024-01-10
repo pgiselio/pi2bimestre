@@ -26,9 +26,15 @@
     <div class="form-group">
         <div class="lbl">
             <label for="music.artist.id">Artista / Banda:</label>
-            <select class="select2-artist" id="music.artist.id" name="music.artist.id" style="width: 300px;">
+            <select class="select2-artist" id="music.artist.id"
+            #{if session.get('papel').equals("USUARIO") && music.id} disabled="read" #{/if}
+            
+             name="music.artist.id" style="width: 300px;">
                 <option value="${music?.artist?.id}">${music?.artist?.name}</option>
             </select>
+            #{if session.get('papel').equals("USUARIO") && music.id} 
+                <input type="hidden" name="music.artist.id" value="${music?.artist?.id}" />
+            #{/if}
             <span style="display: none;" id="newArtistMsg">**Criando novo artista</span>
         </div>
         <input hidden name="newartist.name" id="newArtist" value="" />

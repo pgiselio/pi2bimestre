@@ -140,6 +140,7 @@
   border-radius: 10px;
   padding-left: 15px;
   background: var(--card-color);
+  overflow-x: scroll;
 }
 .letraMusica pre {
   padding-left: 20px;
@@ -162,4 +163,28 @@
 }
 .music-extrainfo b {
   font-weight: 500;
+}
+
+@media (max-width: 767px){
+  .musica-container-bloco2 {
+    flex-direction: column;
+  }
+  .musica-panel-links {
+    position: static;
+    margin: 15px 0;
+    flex-direction: row;
+    align-self: center;
+  }
+  .musica-panel-links li > *::after {
+    left: -50%;
+    top: 110%;
+    animation: slide-down 0.2s linear;
+  }
+  .letraMusica {
+    padding: 10px;
+    margin: 0;
+  }
+  .letraMusica pre {
+    padding-left: 0;
+  }
 }
